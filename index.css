@@ -105,17 +105,22 @@ body {
     font-size: 25px;
 }
 
-.main-leva{
+
+
+.main-leva {
     float: left;
+    width: 60%; /* ali prilagodi po potrebi */
     border: 2px solid grey;
     padding: 5px;
-    margin-left: 30%;
+    box-sizing: border-box; /* da padding ne poveča širine */
 }
-.main-desna{
-    float:right;
-    margin-right: 40%;
-    
+
+.main-desna {
+    float: right;
+    width: 35%; /* ostanek prostora */
+    box-sizing: border-box;
 }
+
 .stevilke-navadne .krog:hover{
     cursor: pointer;
 
