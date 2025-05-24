@@ -1,3 +1,137 @@
-.header{
-    background-color: yellow;
+.header {
+    background-color: orange;
+    padding: 1%;
+    
+}
+
+body {
+    margin: 0;
+}
+
+.logo {
+    float: left;
+    margin-left:37%;
+}
+
+.navigacija {
+    float: right;
+    margin-right: 30%;
+    margin-top: 10px; 
+}
+
+.navigacija p{
+    float: left;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+}
+.navigacija button {
+    float: left;
+    margin-left: 20px;
+    font-weight: bold;
+    margin-top: 2%;
+    
+}
+
+.nacin-igranja p {
+    float: right;
+    margin-left:2%;
+}
+.nacin-igranja{
+    margin-right:39%;
+
+    
+}
+
+
+.clear {
+    clear: both;
+}
+
+
+
+.koraki{
+    background-color: orange;
+}
+
+
+.koraki .krog {
+    float: left;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #4b2600;
+    text-align: center;
+    line-height: 22px;
+    font-weight: bold;
+    margin-right: 8px;
+   
+    color: #4b2600;
+}
+
+.prvi-korak{
+    float: left;
+    margin-left: 40%;
+}
+
+.drugi-korak{
+  float:right;
+  margin-right: 40%;
+}
+.napis {
+    float: right;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.koraki .krog:hover{
+    background-color:#4b2600 ;
+    cursor: pointer;
+    color: white;
+}
+
+
+.stevilke-navadne  .krog{
+     float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    text-align: center;
+   margin: 0px;
+    font-weight: bold;
+    margin-right: 8px;
+   line-height: 35px;
+    color: grey;
+    font-size: 25px;
+}
+
+.main-leva{
+    float: left;
+    border: 2px solid grey;
+    padding: 5px;
+    margin-left: 30%;
+}
+.main-desna{
+    float:right;
+    margin-right: 40%;
+    
+}
+.stevilke-navadne .krog:hover{
+    cursor: pointer;
+
+}
+
+.stevilke-euro  .krog{
+     float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    text-align: center;
+   margin: 0px;
+    font-weight: bold;
+    margin-right: 8px;
+   line-height: 35px;
+    color: grey;
+    font-size: 25px;
 }
