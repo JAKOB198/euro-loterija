@@ -10,12 +10,12 @@ body {
 
 .logo {
     float: left;
-    margin-left:37%;
+  margin-left: 30%;
 }
 
 .navigacija {
     float: right;
-    margin-right: 30%;
+   margin-right: 25%;
     margin-top: 10px; 
 }
 
@@ -109,16 +109,16 @@ body {
 
 .main-leva {
     float: left;
-    width: 60%; /* ali prilagodi po potrebi */
+  margin-left: 30%;
     border: 2px solid grey;
     padding: 5px;
-    box-sizing: border-box; /* da padding ne poveča širine */
+   
 }
 
 .main-desna {
     float: right;
-    width: 35%; /* ostanek prostora */
-    box-sizing: border-box;
+  margin-right: 25%;
+  
 }
 
 .stevilke-navadne .krog:hover{
@@ -139,4 +139,49 @@ body {
    line-height: 35px;
     color: grey;
     font-size: 25px;
+   
+}
+.stevilke-euro{
+     margin-left: 30%;
+     margin-top: 3%;
+       border: 2px solid grey;
+       float: left;
+       padding: 5px;
+}
+.main p {
+    margin-left: 30%;
+}
+.krog.izbrana {
+    background-color: yellow;
+    color: black;
+    border: 2px solid orange;
+}
+.zrebanja-izbira {
+    margin-top: 10px;
+    margin-left: 30%;
+}
+
+.zrebanja-izbira .krog {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 20px;
+    color: grey;
+}
+
+.zrebanja-izbira .krog:hover {
+    cursor: pointer;
+    border-color: orange;
+}
+
+.krog.izbrana {
+    background-color: orange;
+    color: white;
+    border: 2px solid darkorange;
 }
