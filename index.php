@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include_once 'baza.php';
 // Inicializacija
 $_SESSION['trenutni_listek'] = $_SESSION['trenutni_listek'] ?? [];
 $_SESSION['listki'] = $_SESSION['listki'] ?? [];
@@ -176,6 +176,11 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <br>
     <a href="?reset_all=true"><button>Resetiraj vse</button></a>
 </div>
+<form action="placilo.php" method="post">
+    <input type="hidden" name="zrebanja" value="<?= $_SESSION['zrebanja'] ?>">
+    <input type="hidden" name="listki" value='<?= json_encode($_SESSION['listki']) ?>'>
+    <button type="submit">Plačilo</button>
+</form>
             </div>
             <div class="clear"></div>
 <div class="stevilke-euro">

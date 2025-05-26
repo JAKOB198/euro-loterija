@@ -19,7 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // if (password_verify($geslo, $uporabnik['geslo'])) {
         if ($geslo === $uporabnik['geslo']) { // navadno primerjanje (če nisi uporabljal password_hash)
 
-          $_SESSION['uporabnik'] = $uporabnik['ime'];
+        $_SESSION['uporabnik'] = $uporabnik['ime'];
+$_SESSION['id_u'] = $uporabnik['id_u']; // Dodano!
+
 header("Location: index.php");
 exit;
 
