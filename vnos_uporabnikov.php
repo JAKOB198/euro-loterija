@@ -1,18 +1,37 @@
 <?php
 include_once 'baza.php';
+
+$sporocilo = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ime = mysqli_real_escape_string($link, $_POST['ime']);
-    $email = mysqli_real_escape_string($link, $_POST['email']);
-    $geslo = password_hash($_POST['geslo'], PASSWORD_DEFAULT); // varno geslo
+    $ime = $_POST['ime'];
+    $email = $_POST['email'];
+    $geslo = $_POST['geslo'];
+    $potrdi_geslo = $_POST['potrdi_geslo'];
 
-  
-    $sql = "INSERT INTO uporabniki (ime, email, geslo, znesek_denarja) 
-            VALUES ('$ime', '$email', '$geslo', 0)";
-
-    if (mysqli_query($link, $sql)) {
-        echo "Uporabnik uspešno dodan!";
+    // Preveri ujemanje gesel
+    if ($geslo !== $potrdi_geslo) {
+        $sporocilo = "❌ Gesli se ne ujemata.";
     } else {
-        echo "Napaka: " . mysqli_error($link);
+        // Preveri ali e-mail že obstaja
+        $check_email = "SELECT * FROM uporabniki WHERE email = '$email'";
+        $result_check = mysqli_query($link, $check_email);
+
+        if (mysqli_num_rows($result_check) > 0) {
+            $sporocilo = "❌ Email že obstaja v bazi.";
+        } else {
+            // Vstavi uporabnika
+            $query = "INSERT INTO uporabniki (ime, email, geslo) 
+                      VALUES ('$ime', '$email', '$geslo')";
+            $result = mysqli_query($link, $query);
+
+            if ($result) {
+                $sporocilo = "✅ Uporabnik uspešno vnešen. Preusmeritev...";
+                header("refresh:3;url=login.php");
+            } else {
+                $sporocilo = "❌ Napaka pri vnosu. Poskusi znova.";
+            }
+        }
     }
 }
 ?>
@@ -20,11 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <meta charset="UTF-8">
+     <link rel="stylesheet" href="register.css?v=1.0">
     <title>Vnos uporabnika</title>
 </head>
 <body>
 <h1>Vnos novega uporabnika</h1>
-<form method="post" action="u_vbazo.php">
+
+<!-- Prikaz sporočila -->
+
+
+<form method="post" action="">
     Ime<br>
     <input type="text" name="ime" required><br><br>
 
@@ -33,6 +57,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     Geslo<br>
     <input type="password" name="geslo" placeholder="Geslo" required><br><br>
+
+    Potrdi geslo<br>
+    <input type="password" name="potrdi_geslo" placeholder="Ponovno geslo" required><br><br>
+
+    <!-- Prikaz sporočila (premaknjen sem) -->
+    <?php if (!empty($sporocilo)) : ?>
+        <p style="color: <?= str_contains($sporocilo, '✅') ? 'green' : 'red' ?>;">
+            <?= $sporocilo ?>
+        </p>
+    <?php endif; ?>
 
     <input type="submit" name="submit" value="Vnesi">
 </form>

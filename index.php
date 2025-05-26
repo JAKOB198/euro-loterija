@@ -75,7 +75,7 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="index.css" rel="stylesheet">
+   <link rel="stylesheet" href="index.css?v=1.0">
     <title>loterija</title>
 </head>
 <body>
@@ -88,8 +88,14 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
   <a href=""><p class="rezultati-text">Rezultati</p></a>
   <a href=""><p class="statistika-text">Statistika</p></a>
 
-    <a href="prijava.php"><button>Prijava</button></a>
-  <a href="vnos_uporabnikov.php"><button>Registracija</button></a>
+<?php if (isset($_SESSION['uporabnik'])): ?>
+    <span>Pozdravljen, <strong><?= htmlspecialchars($_SESSION['uporabnik']) ?></strong></span>
+    <a href="logout.php"><button>Odjava</button></a>
+<?php else: ?>
+    <a href="login.php"><button>Prijava</button></a>
+    <a href="vnos_uporabnikov.php"><button>Registracija</button></a>
+<?php endif; ?>
+
 
   
 </div>

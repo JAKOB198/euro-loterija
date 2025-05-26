@@ -1,0 +1,87 @@
+/* General page style */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  
+
+  
+  padding-top: 50px;
+  
+  margin: 0;
+}
+
+/* Container for the form */
+form {
+    margin-top: 2%;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  width:30%;
+margin-left: 33%;
+}
+
+/* Page title */
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Labels and inputs */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  
+  transition: 0.3s;
+}
+
+form input:focus {
+  border-color: orange;
+  outline: none;
+  box-shadow: 0 0 5px orange;
+}
+
+/* Submit button */
+form input[type="submit"] {
+  width: 100%;
+  background-color: orange;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: orange;
+}
+
+/* Message style */
+p {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Link */
+a {
+  
+ 
+  margin-top: 20px;
+  color: orange;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 33%;
+}
+
+a:hover {
+  text-decoration: underline;
+}
