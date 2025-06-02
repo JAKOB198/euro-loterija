@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // <-- to je ključno!
 include_once 'baza.php';
 
 $id_u = $_SESSION['id_u'] ?? null;
@@ -31,11 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         }
     }
 
-    // Po potrditvi plačila lahko preusmeriš uporabnika
     echo "<script>alert('Plačilo uspešno!'); window.location.href = 'index.php';</script>";
     exit;
 } else {
-    // Prikaz pregleda plačila
     $listki = json_decode($_POST['listki'] ?? '[]', true);
     $zrebanja = (int) ($_POST['zrebanja'] ?? 1);
 }
@@ -50,9 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
 </head>
 <body>
     <h1>Pregled plačila</h1>
-
     <h3>Število žrebanj: <?= htmlspecialchars($zrebanja) ?></h3>
-
     <h3>Tvoji listki:</h3>
     <?php foreach ($listki as $index => $listek): ?>
         <div>
