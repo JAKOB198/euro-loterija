@@ -9,27 +9,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $geslo = $_POST['geslo'];
     $potrdi_geslo = $_POST['potrdi_geslo'];
 
-    // Preveri ujemanje gesel
+   
     if ($geslo !== $potrdi_geslo) {
-        $sporocilo = "❌ Gesli se ne ujemata.";
+        $sporocilo = " Gesli se ne ujemata.";
     } else {
-        // Preveri ali e-mail že obstaja
+       
         $check_email = "SELECT * FROM uporabniki WHERE email = '$email'";
         $result_check = mysqli_query($link, $check_email);
 
         if (mysqli_num_rows($result_check) > 0) {
-            $sporocilo = "❌ Email že obstaja v bazi.";
+            $sporocilo = " Email že obstaja v bazi.";
         } else {
-            // Vstavi uporabnika
+           
             $query = "INSERT INTO uporabniki (ime, email, geslo) 
                       VALUES ('$ime', '$email', '$geslo')";
             $result = mysqli_query($link, $query);
 
             if ($result) {
-                $sporocilo = "✅ Uporabnik uspešno vnešen. Preusmeritev...";
+                $sporocilo = " Uporabnik uspešno vnešen. Preusmeritev...";
                 header("refresh:3;url=login.php");
             } else {
-                $sporocilo = "❌ Napaka pri vnosu. Poskusi znova.";
+                $sporocilo = " Napaka pri vnosu. Poskusi znova.";
             }
         }
     }

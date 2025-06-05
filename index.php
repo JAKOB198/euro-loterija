@@ -1,13 +1,13 @@
 <?php
 session_start();
 include_once 'baza.php';
-// Inicializacija
+
 $_SESSION['trenutni_listek'] = $_SESSION['trenutni_listek'] ?? [];
 $_SESSION['listki'] = $_SESSION['listki'] ?? [];
 $_SESSION['navadne'] = $_SESSION['navadne'] ?? [];
 $_SESSION['euro'] = $_SESSION['euro'] ?? [];
 
-// Dodaj številko
+
 $stevilka = (int) ($_GET['stevilka'] ?? 0);
 $tip = $_GET['tip'] ?? '';
 
@@ -21,26 +21,26 @@ if ($tip === 'navadna' && $stevilka >= 1 && $stevilka <= 50) {
     }
 }
 
-// Reset trenutnega listka
+
 if (isset($_GET['reset'])) {
     $_SESSION['navadne'] = [];
     $_SESSION['euro'] = [];
 }
 
-// Dodaj listek
+
 if (isset($_GET['dodaj_listek']) && count($_SESSION['navadne']) === 5 && count($_SESSION['euro']) === 2) {
     $_SESSION['listki'][] = array_merge($_SESSION['navadne'], $_SESSION['euro']);
     $_SESSION['navadne'] = [];
     $_SESSION['euro'] = [];
 }
 
-// Resetiraj vse
+
 if (isset($_GET['reset_all'])) {
     $_SESSION['listki'] = [];
     $_SESSION['trenutni_listek'] = [];
 }
 
-// Naključna izbira
+
 if (isset($_GET['random'])) {
     $vseNavadne = range(1, 50);
     shuffle($vseNavadne);
@@ -51,7 +51,7 @@ if (isset($_GET['random'])) {
     $_SESSION['euro'] = array_slice($vseEuro, 0, 2);
 }
 
-// Zrebanja (število žrebanj)
+
 if (!isset($_SESSION['zrebanja'])) {
     $_SESSION['zrebanja'] = 1;
 }

@@ -1,4 +1,4 @@
-/* General page style */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f4f8;
@@ -10,7 +10,7 @@ body {
   margin: 0;
 }
 
-/* Container for the form */
+
 form {
     margin-top: 2%;
   background-color: #ffffff;
@@ -21,14 +21,12 @@ form {
 margin-left: 33%;
 }
 
-/* Page title */
 h1 {
   text-align: center;
   color: #333;
   margin-bottom: 30px;
 }
 
-/* Labels and inputs */
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
@@ -48,7 +46,7 @@ form input:focus {
   box-shadow: 0 0 5px orange;
 }
 
-/* Submit button */
+
 form input[type="submit"] {
   width: 100%;
   background-color: orange;
@@ -65,13 +63,13 @@ form input[type="submit"]:hover {
   background-color: orange;
 }
 
-/* Message style */
+
 p {
   text-align: center;
   font-weight: bold;
 }
 
-/* Link */
+
 a {
   
  

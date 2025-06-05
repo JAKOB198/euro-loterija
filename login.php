@@ -8,19 +8,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $geslo = $_POST['geslo'];
 
-    // Poišči uporabnika po emailu
+    
     $query = "SELECT * FROM uporabniki WHERE email = '$email'";
     $result = mysqli_query($link, $query);
 
     if ($result && mysqli_num_rows($result) == 1) {
         $uporabnik = mysqli_fetch_assoc($result);
 
-        // Preveri geslo (če uporabljaš password_hash)
-        // if (password_verify($geslo, $uporabnik['geslo'])) {
-        if ($geslo === $uporabnik['geslo']) { // navadno primerjanje (če nisi uporabljal password_hash)
+       
+        if ($geslo === $uporabnik['geslo']) { 
 
         $_SESSION['uporabnik'] = $uporabnik['ime'];
-$_SESSION['id_u'] = $uporabnik['id_u']; // Dodano!
+$_SESSION['id_u'] = $uporabnik['id_u']; 
 
 header("Location: index.php");
 exit;

@@ -1,4 +1,4 @@
-/* Osnovni stil */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f0f4f8;
@@ -8,14 +8,14 @@ body {
   margin-left: 35%;
 }
 
-/* Naslov */
+
 h1 {
  
   color: #333;
   margin-bottom: 25px;
 }
 
-/* Obrazec */
+
 form {
   background-color: #ffffff;
   padding: 30px 40px;
@@ -44,7 +44,7 @@ form input:focus {
   box-shadow: 0 0 5px orange;
 }
 
-/* Gumb za prijavo */
+
 form input[type="submit"] {
   width: 100%;
   background-color: orange;
@@ -61,13 +61,13 @@ form input[type="submit"]:hover {
   background-color: orange;
 }
 
-/* Sporočilo */
+
 p {
   text-align: center;
   font-weight: bold;
 }
 
-/* Povezava domov */
+
 a {
  
   text-align: center;
