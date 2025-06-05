@@ -16,8 +16,17 @@ if (!isset($_SESSION['euro'])) {
     $_SESSION['euro'] = [];
 }
 
-$stevilka = isset($_GET['stevilka']) ? (int)$_GET['stevilka'] : 0;
-$tip = isset($_GET['tip']) ? $_GET['tip'] : '';
+if (isset($_GET['stevilka'])) {
+    $stevilka = (int)$_GET['stevilka'];
+} else {
+    $stevilka = 0;
+}
+
+if (isset($_GET['tip'])) {
+    $tip = $_GET['tip'];
+} else {
+    $tip = '';
+}
 
 if ($tip === 'navadna' && $stevilka >= 1 && $stevilka <= 50) {
     if (!in_array($stevilka, $_SESSION['navadne']) && count($_SESSION['navadne']) < 5) {
@@ -115,16 +124,25 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <p>Izberi svojih 5 glavnih številk in 2 dodatni številki ali pa prepusti naključno izbiro računalniku</p>
     <div class="main-leva">
         <div class="stevilke-navadne">
-            <?php for ($i = 1; $i <= 50; $i++): ?>
-                <?php $class = in_array($i, $_SESSION['navadne']) ? 'krog izbrana' : 'krog'; ?>
-                <a href="?stevilka=<?= $i ?>&tip=navadna">
-                    <p class="<?= $class ?>"><?= $i ?></p>
-                </a>
-                <?php if ($i % 6 == 0): ?>
-                    <div class="clear"></div>
-                <?php endif; ?>
-            <?php endfor; ?>
-        </div>
+    <?php
+    for ($i = 1; $i <= 50; $i++) {
+        if (in_array($i, $_SESSION['navadne'])) {
+            $class = 'krog izbrana';
+        } else {
+            $class = 'krog';
+        }
+
+        echo '<a href="?stevilka=' . $i . '&tip=navadna">';
+        echo '<p class="' . $class . '">' . $i . '</p>';
+        echo '</a>';
+
+        if ($i % 6 == 0) {
+            echo '<div class="clear"></div>';
+        }
+    }
+    ?>
+</div>
+
     </div>
     <div class="main-desna">
         <div class="izbrane-stevilke">
@@ -147,16 +165,21 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
         </div>
         <div class="clear"></div>
 
-        <div class="vsi-listki">
-            <h3>Vsi listki:</h3>
-            <?php foreach ($_SESSION['listki'] as $index => $listek): ?>
-                <div>
-                    Listek <?= $index + 1 ?>:
-                    <?php foreach ($listek as $stevilka): ?>
-                        <span class="krog"><?= $stevilka ?></span>
-                    <?php endforeach; ?>
-                </div>
-            <?php endforeach; ?>
+       <div class="vsi-listki">
+    <h3>Vsi listki:</h3>
+    <?php 
+    foreach ($_SESSION['listki'] as $listek) {
+        echo '<div>';
+        echo 'Listek: ';
+        foreach ($listek as $stevilka) {
+            echo '<span class="krog">' . $stevilka . '</span>';
+        }
+        echo '</div>';
+    }
+    ?>
+</div>
+
+          
             <br>
             <a href="?reset_all=true"><button>Resetiraj vse</button></a>
         </div>
@@ -170,15 +193,22 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <div class="clear"></div>
 
     <div class="stevilke-euro">
-        <?php for ($i = 1; $i <= 12; $i++): ?>
-            <?php $class = in_array($i, $_SESSION['euro']) ? 'krog izbrana' : 'krog'; ?>
-            <a href="?stevilka=<?= $i ?>&tip=euro">
-                <p class="<?= $class ?>"><?= $i ?></p>
-            </a>
-            <?php if ($i % 6 == 0): ?>
-                <div class="clear"></div>
-            <?php endif; ?>
-        <?php endfor; ?>
+        <?php for ($i = 1; $i <= 12; $i++) {
+    if (in_array($i, $_SESSION['euro'])) {
+        $class = 'krog izbrana';
+    } else {
+        $class = 'krog';
+    }
+
+    echo '<a href="?stevilka=' . $i . '&tip=euro">';
+    echo '<p class="' . $class . '">' . $i . '</p>';
+    echo '</a>';
+
+    if ($i % 6 == 0) {
+        echo '<div class="clear"></div>';
+    }
+} ?>
+
     </div>
 </div>
 
@@ -186,12 +216,22 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 
 <div class="footer">
     <p><strong>V koliko žrebanjih želite sodelovati?</strong></p>
-    <div class="zrebanja-izbira">
-        <?php for ($i = 1; $i <= 5; $i++): ?>
-            <?php $class = ($_SESSION['zrebanja'] === $i) ? 'krog izbrana' : 'krog'; ?>
-            <a href="?zrebanja=<?= $i ?>"><p class="<?= $class ?>"><?= $i ?></p></a>
-        <?php endfor; ?>
-    </div>
+   <div class="zrebanja-izbira">
+    <?php
+    for ($i = 1; $i <= 5; $i++) {
+        if ($_SESSION['zrebanja'] === $i) {
+            $class = 'krog izbrana';
+        } else {
+            $class = 'krog';
+        }
+
+        echo '<a href="?zrebanja=' . $i . '">';
+        echo '<p class="' . $class . '">' . $i . '</p>';
+        echo '</a>';
+    }
+    ?>
+</div>
+
 </div>
 </body>
 </html>
