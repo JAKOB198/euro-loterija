@@ -1,5 +1,5 @@
 <?php
-session_start(); // <-- to je ključno!
+session_start(); 
 include_once 'baza.php';
 
 $id_u = $_SESSION['id_u'] ?? null;
@@ -8,7 +8,7 @@ if (!$id_u) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
-    // Če je bil obrazec oddan (potrjeno plačilo)
+  
     $listki = json_decode($_POST['listki'] ?? '[]', true);
     $zrebanja = (int) ($_POST['zrebanja'] ?? 1);
 
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         $glavne_str = implode(',', array_map('intval', $glavne));
         $euro_str = implode(',', array_map('intval', $euro));
 
-        $generiran = 0; // false kot integer
+        $generiran = 0; 
 
         $query = "INSERT INTO listki (glavne_stevilke, euro_stevilke, generiran, datum_naretega_listka, id_u, stevilo_zrebanj)
                   VALUES ('$glavne_str', '$euro_str', $generiran, NOW(), $id_u, $zrebanja)";
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         $result = mysqli_query($link, $query);
 
         if (!$result) {
-            die("❌ Napaka pri vnosu: " . mysqli_error($link));
+            die(" Napaka pri vnosu: " . mysqli_error($link));
         }
     }
 
