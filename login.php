@@ -20,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['uporabnik'] = $uporabnik['ime'];
             $_SESSION['id_u'] = $uporabnik['id_u'];
             $_SESSION['tip'] = $uporabnik['tip']; // ⬅️ SPREMEMBA
+            $_SESSION['denar'] = $uporabnik['denar'];
+
 
             // ✅ Preverimo tip uporabnika
             if ($uporabnik['tip'] === 'admin') {

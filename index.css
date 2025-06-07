@@ -1,59 +1,54 @@
-.header {
-background-color: orange;
-    padding: 1%;
-    
-}
-
 body {
     margin: 0;
 }
 
+.header {
+    background-color: orange;
+    padding: 1%;
+}
+
 .logo {
     float: left;
-  margin-left: 30%;
+    margin-left: 30%;
 }
 
 .navigacija {
     float: right;
-   margin-right: 25%;
-    margin-top: 10px; 
+    margin-right: 25%;
+    margin-top: 10px;
 }
 
-.navigacija p{
+.navigacija p {
     float: left;
     margin-left: 20px;
     font-weight: bold;
     color: white;
 }
+
 .navigacija button {
     float: left;
     margin-left: 20px;
     font-weight: bold;
     margin-top: 2%;
-    
+}
+
+.nacin-igranja {
+    margin-right: 39%;
 }
 
 .nacin-igranja p {
     float: right;
-    margin-left:2%;
+    margin-left: 2%;
 }
-.nacin-igranja{
-    margin-right:39%;
-
-    
-}
-
 
 .clear {
     clear: both;
 }
 
-
-
-.koraki{
+.koraki {
     background-color: orange;
+    padding: 10px 0; /* malo paddinga da ni "stisnjeno" */
 }
-
 
 .koraki .krog {
     float: left;
@@ -65,104 +60,92 @@ body {
     line-height: 22px;
     font-weight: bold;
     margin-right: 8px;
-   
     color: #4b2600;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.prvi-korak{
+.koraki .krog:hover {
+    background-color: #4b2600;
+    cursor: pointer;
+    color: white;
+}
+
+.prvi-korak {
     float: left;
     margin-left: 40%;
 }
 
-.drugi-korak{
-  float:right;
-  margin-right: 40%;
+.drugi-korak {
+    float: right;
+    margin-right: 40%;
 }
+
 .napis {
     float: right;
     margin-top: 20px;
     margin-left: 15px;
 }
-.koraki .krog:hover{
-    background-color:#4b2600 ;
-    cursor: pointer;
-    color: white;
-}
 
-
-.stevilke-navadne  .krog{
-     float: left;
+.stevilke-navadne .krog,
+.stevilke-euro .krog {
+    float: left;
     width: 35px;
     height: 35px;
     border-radius: 50%;
     border: 2px solid grey;
     text-align: center;
-   margin: 0px;
     font-weight: bold;
     margin-right: 8px;
-   line-height: 35px;
+    line-height: 35px;
     color: grey;
     font-size: 25px;
+    margin: 0;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
-
+.stevilke-navadne .krog:hover,
+.stevilke-euro .krog:hover {
+    cursor: pointer;
+    border-color: orange;
+    color: orange;
+}
 
 .main-leva {
     float: left;
-  margin-left: 30%;
+    margin-left: 30%;
     border: 2px solid grey;
     padding: 5px;
-   
 }
 
 .main-desna {
     float: right;
-  margin-right: 25%;
-  
+    margin-right: 25%;
 }
 
-.stevilke-navadne .krog:hover{
-    cursor: pointer;
-
-}
-
-.stevilke-euro  .krog{
-     float: left;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
+.stevilke-euro {
+    margin-left: 30%;
+    margin-top: 3%;
     border: 2px solid grey;
-    text-align: center;
-   margin: 0px;
-    font-weight: bold;
-    margin-right: 8px;
-   line-height: 35px;
-    color: grey;
-    font-size: 25px;
-   
+    float: left;
+    padding: 5px;
 }
-.stevilke-euro{
-     margin-left: 30%;
-     margin-top: 3%;
-       border: 2px solid grey;
-       float: left;
-       padding: 5px;
-}
+
 .main p {
     margin-left: 30%;
 }
+
 .krog.izbrana {
     background-color: yellow;
     color: black;
     border: 2px solid orange;
 }
+
 .zrebanja-izbira {
     margin-top: 10px;
-    
 }
 
 .zrebanja-izbira .krog {
-float:left;
+    float: left;
     width: 35px;
     height: 35px;
     border-radius: 50%;
@@ -173,6 +156,7 @@ float:left;
     margin-right: 10px;
     font-size: 20px;
     color: grey;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
 .zrebanja-izbira .krog:hover {
@@ -185,6 +169,7 @@ float:left;
     color: white;
     border: 2px solid darkorange;
 }
- .footer{
-   margin-left: 30%;
- }
+
+.footer {
+    margin-left: 30%;
+}

@@ -89,13 +89,17 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
         <a href=""><p class="rezultati-text">Rezultati</p></a>
         <a href=""><p class="statistika-text">Statistika</p></a>
 
-        <?php if (isset($_SESSION['uporabnik'])): ?>
-            <span>Pozdravljen, <strong><?= htmlspecialchars($_SESSION['uporabnik']) ?></strong></span>
-            <a href="logout.php"><button>Odjava</button></a>
-        <?php else: ?>
-            <a href="login.php"><button>Prijava</button></a>
-            <a href="vnos_uporabnikov.php"><button>Registracija</button></a>
-        <?php endif; ?>
+      <?php if (isset($_SESSION['uporabnik'])): ?>
+    <span>
+        Pozdravljen, <strong><?= htmlspecialchars($_SESSION['uporabnik']) ?></strong> |
+        Denar na računu: <strong><?= number_format($_SESSION['denar'] ?? 0, 2) ?>  €</strong>
+    </span>
+    <a href="logout.php"><button>Odjava</button></a>
+<?php else: ?>
+    <a href="login.php"><button>Prijava</button></a>
+    <a href="vnos_uporabnikov.php"><button>Registracija</button></a>
+<?php endif; ?>
+
     </div>
     <div class="clear"></div>
 </div>
