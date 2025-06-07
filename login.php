@@ -8,21 +8,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $geslo = $_POST['geslo'];
 
-    
     $query = "SELECT * FROM uporabniki WHERE email = '$email'";
     $result = mysqli_query($link, $query);
 
     if ($result && mysqli_num_rows($result) == 1) {
         $uporabnik = mysqli_fetch_assoc($result);
 
-       
-        if ($geslo === $uporabnik['geslo']) { 
+        if ($geslo === $uporabnik['geslo']) {
 
-        $_SESSION['uporabnik'] = $uporabnik['ime'];
-$_SESSION['id_u'] = $uporabnik['id_u']; 
+            // ✅ Shranimo podatke v sejo
+            $_SESSION['uporabnik'] = $uporabnik['ime'];
+            $_SESSION['id_u'] = $uporabnik['id_u'];
+            $_SESSION['tip'] = $uporabnik['tip']; // ⬅️ SPREMEMBA
 
-header("Location: index.php");
-exit;
+            // ✅ Preverimo tip uporabnika
+            if ($uporabnik['tip'] === 'admin') {
+                header("Location: admin.php"); // ⬅️ SPREMEMBA
+            } else {
+                header("Location: index.php");  // navaden uporabnik
+            }
+            exit;
 
         } else {
             $sporocilo = "❌ Napačno geslo.";
@@ -37,7 +42,7 @@ exit;
 <html>
 <head>
     <meta charset="UTF-8">
-         <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css">
     <title>Prijava</title>
 </head>
 <body>
