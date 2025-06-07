@@ -1,6 +1,7 @@
 <?php
-session_start(); 
+
 include_once 'baza.php';
+include 'navigation.php';
 date_default_timezone_set('Europe/Ljubljana');
 
 // Preveri prijavo
@@ -23,6 +24,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     $stevilo_listkov = count($listki);
     $skupni_znesek = $stevilo_listkov * CENA_NA_LISTEK * $zrebanja;
 
+    // Preveri stanje denarja uporabnika in začni transakcijo
+    mysqli_begin_transaction($link);
+
+    // Pridobi trenutno stanje denarja uporabnika
+    $result = mysqli_query($link, "SELECT znesek_denarja FROM uporabniki WHERE id_u = $id_u FOR UPDATE");
+    if (!$result || mysqli_num_rows($result) !== 1) {
+        mysqli_rollback($link);
+        die("Uporabnik ni najden v bazi.");
+    }
+    $row = mysqli_fetch_assoc($result);
+    $trenutni_denar = (float) $row['znesek_denarja'];
+
+    if ($trenutni_denar < $skupni_znesek) {
+        mysqli_rollback($link);
+        die("Nimate dovolj denarja na računu za to plačilo.");
+    }
+
     // Pridobi naslednjih N prihajajočih žrebanj
     $result_zrebanja = mysqli_query($link, "
         SELECT id_z FROM zrebanja 
@@ -32,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     ");
 
     if (!$result_zrebanja || mysqli_num_rows($result_zrebanja) < $zrebanja) {
+        mysqli_rollback($link);
         die("❌ Ni dovolj prihajajočih žrebanj v bazi.");
     }
 
@@ -40,15 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         $id_z_list[] = $row['id_z'];
     }
 
-    // Tukaj lahko dodaš preverjanje plačila, če hočeš (trenutno samo shrani)
-
-    // Pripravi pripravljeno poizvedbo
+    // Pripravi pripravljeno poizvedbo za vnos listkov
     $stmt = $link->prepare("
         INSERT INTO listki (glavne_stevilke, euro_stevilke, generiran, datum_naretega_listka, id_u, stevilo_zrebanj, id_z)
         VALUES (?, ?, 0, NOW(), ?, ?, ?)
     ");
 
     if (!$stmt) {
+        mysqli_rollback($link);
         die("Napaka pri pripravi poizvedbe: " . $link->error);
     }
 
@@ -62,15 +80,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         foreach ($id_z_list as $id_z) {
             $stmt->bind_param("ssiii", $glavne_str, $euro_str, $id_u, $zrebanja, $id_z);
             if (!$stmt->execute()) {
+                mysqli_rollback($link);
                 die("Napaka pri vnosu listka: " . $stmt->error);
             }
         }
     }
 
-    $stmt->close();
-    unset($_SESSION['listki']); // Po uspešnem plačilu
-    echo "<script>alert('✅ Plačilo uspešno! Skupni znesek: " . number_format($skupni_znesek, 2) . " €'); window.location.href = 'index.php';</script>";
-    exit;
+    // Zmanjšaj stanje denarja uporabnika
+    $nov_denar = $trenutni_denar - $skupni_znesek;
+    $update = mysqli_query($link, "UPDATE uporabniki SET znesek_denarja = $nov_denar WHERE id_u = $id_u");
+    if (!$update) {
+        mysqli_rollback($link);
+        die("Napaka pri posodobitvi stanja denarja: " . mysqli_error($link));
+    }
+
+   mysqli_commit($link);
+$stmt->close();
+unset($_SESSION['listki']); // Po uspešnem plačilu
+
+// Posodobi stanje denarja v seji, da se bo takoj prikazalo pravilno
+$_SESSION['denar'] = $nov_denar;
+
+echo "<script>alert('✅ Plačilo uspešno! Skupni znesek: " . number_format($skupni_znesek, 2) . " €'); window.location.href = 'index.php';</script>";
+exit;
 } else {
     $listki = json_decode($_POST['listki'] ?? '[]', true);
     $zrebanja = (int) ($_POST['zrebanja'] ?? 1);
@@ -84,66 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
 <head>
     <meta charset="UTF-8">
     <title>Plačilo</title>
-    <link rel="stylesheet" href="index.css?v=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fff7e6;
-            color: #333;
-            padding: 30px;
-        }
-        h1 {
-            color: orange;
-            margin-bottom: 10px;
-        }
-        .krog {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            border-radius: 50%;
-            background-color: orange;
-            color: white;
-            text-align: center;
-            margin-right: 5px;
-            font-weight: bold;
-        }
-        .listek {
-            margin-bottom: 10px;
-            padding: 10px;
-            background: #fff0b3;
-            border-radius: 8px;
-            border: 1px solid orange;
-        }
-        .skupaj {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            color: darkorange;
-        }
-        button {
-            background-color: orange;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: darkorange;
-        }
-        a button {
-            background-color: #999;
-            margin-left: 10px;
-        }
-        a button:hover {
-            background-color: #666;
-        }
-    </style>
+     <link rel="stylesheet" href="rezultati.css">
+    
 </head>
 <body>
     <h1>Pregled plačila</h1>

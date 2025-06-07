@@ -1,8 +1,7 @@
 <?php
-session_start();
+
 include_once 'baza.php';
-
-
+include_once 'navigation.php';
 if (!isset($_SESSION['trenutni_listek'])) {
     $_SESSION['trenutni_listek'] = [];
 }
@@ -81,36 +80,9 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <title>loterija</title>
 </head>
 <body>
-<div class="header">
-    <div class="logo"><img src="slike/ejp_logo.png"></div>
-    <div class="navigacija">
-        <a href=""><p class="igraj-text">Igraj</p></a>
-        <a href=""><p class="vseoigri-text">Vse o igri</p></a>
-        <a href=""><p class="rezultati-text">Rezultati</p></a>
-        <a href=""><p class="statistika-text">Statistika</p></a>
 
-      <?php if (isset($_SESSION['uporabnik'])): ?>
-    <span>
-        Pozdravljen, <strong><?= htmlspecialchars($_SESSION['uporabnik']) ?></strong> |
-        Denar na računu: <strong><?= number_format($_SESSION['denar'] ?? 0, 2) ?>  €</strong>
-    </span>
-    <a href="logout.php"><button>Odjava</button></a>
-<?php else: ?>
-    <a href="login.php"><button>Prijava</button></a>
-    <a href="vnos_uporabnikov.php"><button>Registracija</button></a>
-<?php endif; ?>
 
-    </div>
-    <div class="clear"></div>
-</div>
 
-<div class="nacin-igranja">
-    <p>Izberite nacin igranja:</p>
-    <p>Izberi sam</p>
-    <p>Hitri izbor</p>
-    <p>Priljubljeni paketi</p>
-</div>
-<div class="clear"></div>
 
 <div class="koraki">
     <div class="prvi-korak">
@@ -128,25 +100,20 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <p>Izberi svojih 5 glavnih številk in 2 dodatni številki ali pa prepusti naključno izbiro računalniku</p>
     <div class="main-leva">
         <div class="stevilke-navadne">
-    <?php
-    for ($i = 1; $i <= 50; $i++) {
-        if (in_array($i, $_SESSION['navadne'])) {
-            $class = 'krog izbrana';
-        } else {
-            $class = 'krog';
-        }
+            <?php
+            for ($i = 1; $i <= 50; $i++) {
+                $class = in_array($i, $_SESSION['navadne']) ? 'krog izbrana' : 'krog';
 
-        echo '<a href="?stevilka=' . $i . '&tip=navadna">';
-        echo '<p class="' . $class . '">' . $i . '</p>';
-        echo '</a>';
+                echo '<a href="?stevilka=' . $i . '&tip=navadna">';
+                echo '<p class="' . $class . '">' . $i . '</p>';
+                echo '</a>';
 
-        if ($i % 6 == 0) {
-            echo '<div class="clear"></div>';
-        }
-    }
-    ?>
-</div>
-
+                if ($i % 6 == 0) {
+                    echo '<div class="clear"></div>';
+                }
+            }
+            ?>
+        </div>
     </div>
     <div class="main-desna">
         <div class="izbrane-stevilke">
@@ -169,75 +136,63 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
         </div>
         <div class="clear"></div>
 
-       <div class="vsi-listki">
-    <h3>Vsi listki:</h3>
-    <?php 
-    foreach ($_SESSION['listki'] as $listek) {
-        echo '<div>';
-        echo 'Listek: ';
-        foreach ($listek as $stevilka) {
-            echo '<span class="krog">' . $stevilka . '</span>';
-        }
-        echo '</div>';
-    }
-    ?>
-</div>
+        <div class="vsi-listki">
+            <h3>Vsi listki:</h3>
+            <?php 
+            foreach ($_SESSION['listki'] as $listek) {
+                echo '<div>';
+                echo 'Listek: ';
+                foreach ($listek as $stevilka) {
+                    echo '<span class="krog">' . $stevilka . '</span>';
+                }
+                echo '</div>';
+            }
+            ?>
+        </div>
 
-          
-            <br>
-            <a href="?reset_all=true"><button>Resetiraj vse</button></a>
+        <br>
+        <a href="?reset_all=true"><button>Resetiraj vse</button></a>
 
-            <form action="placilo.php" method="post">
+        <form action="placilo.php" method="post">
             <input type="hidden" name="zrebanja" value="<?= $_SESSION['zrebanja'] ?>">
             <input type="hidden" name="listki" value='<?= json_encode($_SESSION['listki']) ?>'>
             <button type="submit">Plačilo</button>
         </form>
-        </div>
-
-        
     </div>
-    <div class="clear"></div>
+</div>
+<div class="clear"></div>
 
-    <div class="stevilke-euro">
-        <?php for ($i = 1; $i <= 12; $i++) {
-    if (in_array($i, $_SESSION['euro'])) {
-        $class = 'krog izbrana';
-    } else {
-        $class = 'krog';
+<div class="stevilke-euro">
+    <?php 
+    for ($i = 1; $i <= 12; $i++) {
+        $class = in_array($i, $_SESSION['euro']) ? 'krog izbrana' : 'krog';
+
+        echo '<a href="?stevilka=' . $i . '&tip=euro">';
+        echo '<p class="' . $class . '">' . $i . '</p>';
+        echo '</a>';
+
+        if ($i % 6 == 0) {
+            echo '<div class="clear"></div>';
+        }
     }
-
-    echo '<a href="?stevilka=' . $i . '&tip=euro">';
-    echo '<p class="' . $class . '">' . $i . '</p>';
-    echo '</a>';
-
-    if ($i % 6 == 0) {
-        echo '<div class="clear"></div>';
-    }
-} ?>
-
-    </div>
+    ?>
 </div>
 
 <div class="clear"></div>
 
 <div class="footer">
     <p><strong>V koliko žrebanjih želite sodelovati?</strong></p>
-   <div class="zrebanja-izbira">
-    <?php
-    for ($i = 1; $i <= 5; $i++) {
-        if ($_SESSION['zrebanja'] === $i) {
-            $class = 'krog izbrana';
-        } else {
-            $class = 'krog';
+    <div class="zrebanja-izbira">
+        <?php
+        for ($i = 1; $i <= 5; $i++) {
+            $class = ($_SESSION['zrebanja'] === $i) ? 'krog izbrana' : 'krog';
+
+            echo '<a href="?zrebanja=' . $i . '">';
+            echo '<p class="' . $class . '">' . $i . '</p>';
+            echo '</a>';
         }
-
-        echo '<a href="?zrebanja=' . $i . '">';
-        echo '<p class="' . $class . '">' . $i . '</p>';
-        echo '</a>';
-    }
-    ?>
-</div>
-
+        ?>
+    </div>
 </div>
 </body>
 </html>

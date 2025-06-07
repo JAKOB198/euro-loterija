@@ -1,0 +1,57 @@
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #fff7e6;
+            color: #333;
+            padding: 30px;
+        }
+        h1 {
+            color: orange;
+            margin-bottom: 10px;
+        }
+        .krog {
+           
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: orange;
+            color: white;
+            text-align: center;
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        .listek {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff0b3;
+            border-radius: 8px;
+            border: 1px solid orange;
+        }
+        .skupaj {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: darkorange;
+        }
+        button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: darkorange;
+        }
+        a button {
+            background-color: #999;
+            margin-left: 10px;
+        }
+        a button:hover {
+            background-color: #666;
+        }

@@ -1,45 +1,11 @@
 body {
     margin: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
 
-.header {
-    background-color: orange;
-    padding: 1%;
-}
 
-.logo {
-    float: left;
-    margin-left: 30%;
-}
 
-.navigacija {
-    float: right;
-    margin-right: 25%;
-    margin-top: 10px;
-}
 
-.navigacija p {
-    float: left;
-    margin-left: 20px;
-    font-weight: bold;
-    color: white;
-}
-
-.navigacija button {
-    float: left;
-    margin-left: 20px;
-    font-weight: bold;
-    margin-top: 2%;
-}
-
-.nacin-igranja {
-    margin-right: 39%;
-}
-
-.nacin-igranja p {
-    float: right;
-    margin-left: 2%;
-}
 
 .clear {
     clear: both;
@@ -72,12 +38,12 @@ body {
 
 .prvi-korak {
     float: left;
-    margin-left: 40%;
+    margin-left: 25%;
 }
 
 .drugi-korak {
     float: right;
-    margin-right: 40%;
+    margin-right: 55%;
 }
 
 .napis {
@@ -119,7 +85,7 @@ body {
 
 .main-desna {
     float: right;
-    margin-right: 25%;
+    margin-right: 20%;
 }
 
 .stevilke-euro {
@@ -173,3 +139,19 @@ body {
 .footer {
     margin-left: 30%;
 }
+button {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 5px 3px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: darkorange;
+    transform: scale(1.05);}

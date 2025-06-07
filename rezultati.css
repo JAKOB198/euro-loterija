@@ -1,0 +1,47 @@
+body {
+
+    background-color: #fff9f0;
+    color: #333;
+    
+    line-height: 1.6;
+    
+}
+
+/* H1 bo zdaj bolj pri vrhu */
+h1 {
+    color: #e36c0a;
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 3px solid #e36c0a;
+    padding-bottom: 10px;
+}
+
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto; /* centriranje in razmik */
+    border-collapse: collapse;
+    background-color: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+th {
+    background-color: #e36c0a;
+    color: white;
+    font-size: 18px;
+}
+
+tr:nth-child(even) {
+    background-color: #fdf1e6;
+}
+
+tr:hover {
+    background-color: #fce3cc;
+}

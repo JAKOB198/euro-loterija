@@ -8,26 +8,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $geslo = $_POST['geslo'];
 
-    $query = "SELECT * FROM uporabniki WHERE email = '$email'";
-    $result = mysqli_query($link, $query);
+    // Pripravljena poizvedba za varnost
+    $stmt = mysqli_prepare($link, "SELECT * FROM uporabniki WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if ($result && mysqli_num_rows($result) == 1) {
         $uporabnik = mysqli_fetch_assoc($result);
 
+        // Preverjanje gesla (zaenkrat plain text)
         if ($geslo === $uporabnik['geslo']) {
 
-            // ✅ Shranimo podatke v sejo
+            // Shranimo podatke v sejo
             $_SESSION['uporabnik'] = $uporabnik['ime'];
             $_SESSION['id_u'] = $uporabnik['id_u'];
-            $_SESSION['tip'] = $uporabnik['tip']; // ⬅️ SPREMEMBA
-            $_SESSION['denar'] = $uporabnik['denar'];
+            $_SESSION['tip'] = $uporabnik['tip'];
+            $_SESSION['denar'] = $uporabnik['znesek_denarja']; // TUKAJ je pravi stolpec!
 
-
-            // ✅ Preverimo tip uporabnika
+            // Preusmeritev glede na tip
             if ($uporabnik['tip'] === 'admin') {
-                header("Location: admin.php"); // ⬅️ SPREMEMBA
+                header("Location: admin.php");
             } else {
-                header("Location: index.php");  // navaden uporabnik
+                header("Location: index.php");
             }
             exit;
 
@@ -37,9 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $sporocilo = "❌ Uporabnik s tem emailom ne obstaja.";
     }
+    mysqli_stmt_close($stmt);
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
