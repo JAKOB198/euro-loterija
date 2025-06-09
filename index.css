@@ -2,18 +2,13 @@ body {
     margin: 0;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
 }
-
-
-
-
-
 .clear {
     clear: both;
 }
 
 .koraki {
     background-color: orange;
-    padding: 10px 0; /* malo paddinga da ni "stisnjeno" */
+    padding: 10px 0; 
 }
 
 .koraki .krog {
