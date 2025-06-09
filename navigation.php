@@ -19,7 +19,7 @@ session_start();
         <a href="index.php"><p class="igraj-text">Igraj</p></a>
         <a href="vseoigri.php"><p class="vseoigri-text">Vse o igri</p></a>
         <a href="rezultati.php"><p class="rezultati-text">Rezultati</p></a>
-        <a href=""><p class="statistika-text">Statistika</p></a>
+        <a href="mojilistki.php"><p class="statistika-text">Moji listki</p></a>
     </div>
 
     <div class="uporabnik">
