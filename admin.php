@@ -3,24 +3,21 @@ session_start();
 include_once 'baza.php';
 date_default_timezone_set('Europe/Ljubljana');
 
-if (!isset($_SESSION['tip']) || $_SESSION['tip'] !== 'admin') {
-    header("Location: index.php");
-    exit;
-}
+
 
 $sporocilo = "";
 
-// Dodajanje novega žrebanja
+
 if (isset($_POST['dodaj_zrebanje'])) {
     $datum = $_POST['datum'];
     $glavne = $_POST['glavne'];
     $evropske = $_POST['evropske'];
 
     $link->query("INSERT INTO zrebanja (datum_zrebanja, glavne_stevilke, europske_stevilke) VALUES ('$datum', '$glavne', '$evropske')");
-    $sporocilo = "✅ Žrebanje dodano!";
+    $sporocilo = " Žrebanje dodano!";
 }
 
-// Urejanje žrebanja
+
 if (isset($_POST['uredi_zrebanje'])) {
     $id = (int)$_POST['id_z'];
     $datum = $_POST['datum'];
@@ -28,26 +25,26 @@ if (isset($_POST['uredi_zrebanje'])) {
     $evropske = $_POST['evropske'];
 
     $link->query("UPDATE zrebanja SET datum_zrebanja = '$datum', glavne_stevilke = '$glavne', europske_stevilke = '$evropske' WHERE id_z = $id");
-    $sporocilo = "✅ Žrebanje posodobljeno!";
+    $sporocilo = " Žrebanje posodobljeno!";
 }
 
-// Brisanje žrebanja
-if (isset($_GET['izbrisi_zrebanje'])) {
-    $id = (int)$_GET['izbrisi_zrebanje'];
+
+if (isset($_POST['izbrisi_zrebanje'])) {
+    $id = (int)$_POST['izbrisi_zrebanje'];
     $link->query("DELETE FROM zrebanja WHERE id_z = $id");
     header("Location: admin.php");
     exit;
 }
 
-// Dodajanje denarja
+
 if (isset($_POST['dodaj_denar'])) {
     $id_u = (int)$_POST['id_u'];
     $znesek = (float)$_POST['znesek'];
     $link->query("UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u");
-    $sporocilo = "✅ Denar dodan!";
+    $sporocilo = " Denar dodan!";
 }
 
-// Obdelava žrebanj
+
 if (isset($_POST['obdelaj_zrebanja'])) {
     $zdaj = date('Y-m-d H:i:s');
     $zrebanja = $link->query("SELECT * FROM zrebanja WHERE datum_zrebanja <= '$zdaj' AND obdelano = 0");
