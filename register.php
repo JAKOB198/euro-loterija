@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <h1>Vnos novega uporabnika</h1>
 
-<!-- Prikaz sporočila -->
+
 
 
 <form method="post" action="">
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Potrdi geslo<br>
     <input type="password" name="potrdi_geslo" placeholder="Ponovno geslo" required><br><br>
 
-    <!-- Prikaz sporočila (premaknjen sem) -->
+ 
     <?php if (!empty($sporocilo)) : ?>
         <p style="color: <?= str_contains($sporocilo, '✅') ? 'green' : 'red' ?>;">
             <?= $sporocilo ?>
