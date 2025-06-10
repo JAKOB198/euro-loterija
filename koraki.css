@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.koraki {
+    background-color: orange;
+    padding: 10px 0; 
+}
+
+.koraki .krog {
+    float: left;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #4b2600;
+    text-align: center;
+    line-height: 22px;
+    font-weight: bold;
+    margin-right: 8px;
+    color: #4b2600;
+    margin-top: 14%;
+   
+}
+
+
+
+.prvi-korak {
+    float: left;
+    margin-left: 25%;
+}
+
+.drugi-korak {
+    float: right;
+    margin-right: 55%;
+}
+
+.napis {
+    float: right;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+.koraki .krog.aktiven {
+    background-color: #4b2600;
+    color: white;
+    border-color: #4b2600;
+}

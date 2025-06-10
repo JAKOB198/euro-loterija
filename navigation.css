@@ -119,3 +119,57 @@ body {
     .clear{
         clear: both;
     }
+
+ @media screen and (max-width: 600px) {
+    .header {
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .logo {
+        float: left;
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .navigacija {
+        float: left;
+        width: 100%;
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .navigacija a {
+        float: none; /* zelo pomembno: da ne razmeče linkov */
+        margin: 0 5px;
+    }
+
+    .navigacija p {
+        margin: 5px 0;
+    }
+
+    .uporabnik {
+        float: left;
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .uporabnik span {
+        margin-bottom: 5px;
+    }
+
+    .nacin-igranja {
+        float: left;
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .nacin-igranja p,
+    .nacin-igranja a {
+        float: none;
+        margin: 5px;
+    }
+}

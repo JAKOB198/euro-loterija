@@ -84,17 +84,7 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 
 
 
-<div class="koraki">
-    <div class="prvi-korak">
-        <p class="krog">1</p>
-        <p class="napis">Igralni listek</p>
-    </div>
-    <div class="drugi-korak">
-        <p class="krog">2</p>
-        <p class="napis">Vplačilo</p>
-    </div>
-    <div class="clear"></div>
-</div>
+<?php include 'koraki.php'   ?>
 
 <div class="main">
     <p>Izberi svojih 5 glavnih številk in 2 dodatni številki ali pa prepusti naključno izbiro računalniku</p>

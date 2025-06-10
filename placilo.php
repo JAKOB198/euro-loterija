@@ -37,6 +37,7 @@ $skupni_znesek = $stevilo_listkov * CENA_NA_LISTEK * $zrebanja;
 $datumi_zrebanj = [];
 $sql = "SELECT datum_zrebanja FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
 $rezultat = mysqli_query($link, $sql);
+
 while ($vrstica = mysqli_fetch_assoc($rezultat)) {
     $cas = strtotime($vrstica['datum_zrebanja']);
     $datumi_zrebanj[] = date('d. m. Y H:i', $cas);
@@ -99,9 +100,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
 <head>
     <meta charset="UTF-8">
     <title>Plačilo</title>
-    <link rel="stylesheet" href="rezultati.css">
+    <link rel="stylesheet" href="placilo.css">
 </head>
 <body>
+   <?php include 'koraki.php' ?>
+    <div class="clear"></div>
+</div>
     <h1>Pregled plačila</h1>
     <h3>Število žrebanj: <?php echo $zrebanja; ?></h3>
 
@@ -138,5 +142,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     </form>
 
     <a href="index.php"><button type="button">Nazaj</button></a>
+    <?php include 'footer.php' ?>
 </body>
 </html>

@@ -4,12 +4,14 @@
     padding: 20px;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    margin-top: 10%;
 }
 
 .vsebnik-noge {
     width: 100%;
-    overflow: hidden;
+    margin-left: 20%;
     margin-bottom: 20px;
+
 }
 
 .odsek-noge {

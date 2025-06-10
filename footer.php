@@ -9,14 +9,7 @@
 
 <footer class="noga-eurojackpot">
     <div class="vsebnik-noge">
-        <div class="odsek-noge levo">
-            <h4>Eurojackpot</h4>
-            <ul>
-                <li><a href="#">O igri</a></li>
-                <li><a href="#">Kako igrati</a></li>
-                <li><a href="#">Pogosta vprašanja</a></li>
-            </ul>
-        </div>
+        
         <div class="odsek-noge sredinsko-levo">
             <h4>Pomoč in podpora</h4>
             <p>📞 01 24 26 175</p>
