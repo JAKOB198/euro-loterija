@@ -51,13 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="opozorilo">⚠️ Najprej se moraš prijaviti, da lahko dostopaš do te strani.</div>
 <?php endif; ?>
 
-<?php if (!empty($sporocilo)) : ?>
-    <p style="color: <?= str_contains($sporocilo, '✅') ? 'green' : 'red' ?>;">
+
+
+<form method="post" action="">
+    <?php if (!empty($sporocilo)) : ?>
+    <p class="sporocilo" <?= $sporocilo  ?>;>
         <?= $sporocilo ?>
     </p>
 <?php endif; ?>
-
-<form method="post" action="">
     Email<br>
     <input type="email" name="email" placeholder="E-Pošta" required><br><br>
 
@@ -65,10 +66,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="password" name="geslo" placeholder="Geslo" required><br><br>
 
     <input type="submit" value="Prijava">
-</form>
-
-<br>
+    <br>
 <a href="index.php">Domov</a>
 <a href="register.php">Registracija</a>
+</form>
+
+
 </body>
 </html>

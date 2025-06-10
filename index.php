@@ -100,19 +100,19 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
     <p>Izberi svojih 5 glavnih številk in 2 dodatni številki ali pa prepusti naključno izbiro računalniku</p>
     <div class="main-leva">
         <div class="stevilke-navadne">
-            <?php
-            for ($i = 1; $i <= 50; $i++) {
-                $class = in_array($i, $_SESSION['navadne']) ? 'krog izbrana' : 'krog';
-
-                echo '<a href="?stevilka=' . $i . '&tip=navadna">';
-                echo '<p class="' . $class . '">' . $i . '</p>';
-                echo '</a>';
-
-                if ($i % 6 == 0) {
-                    echo '<div class="clear"></div>';
-                }
-            }
-            ?>
+           
+         
+    <?php for ($i = 1; $i <= 50; $i++): ?>
+        <?php $class = in_array($i, $_SESSION['navadne']) ? 'krog izbrana' : 'krog'; ?>
+        <a href="?stevilka=<?= $i ?>&tip=navadna">
+            <p class="<?= $class ?>"><?= $i ?></p>
+        </a>
+        <?php if ($i % 6 == 0): ?>
+            <div class="clear"></div>
+        <?php endif; ?>
+    <?php endfor; ?>
+</div>
+            
         </div>
     </div>
     <div class="main-desna">
@@ -138,16 +138,17 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 
         <div class="vsi-listki">
             <h3>Vsi listki:</h3>
-            <?php 
-            foreach ($_SESSION['listki'] as $listek) {
-                echo '<div>';
-                echo 'Listek: ';
-                foreach ($listek as $stevilka) {
-                    echo '<span class="krog">' . $stevilka . '</span>';
-                }
-                echo '</div>';
-            }
-            ?>
+            
+        <?php foreach ($_SESSION['listki'] as $listek): ?>
+   
+        Listek:
+        <?php foreach ($listek as $stevilka): ?>
+
+            <span class="krog"><?= $stevilka ?></span>
+            
+        <?php endforeach; ?>
+  <br>
+<?php endforeach; ?>
         </div>
 
         <br>
@@ -155,7 +156,7 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 
         <form action="placilo.php" method="post">
             <input type="hidden" name="zrebanja" value="<?= $_SESSION['zrebanja'] ?>">
-            <input type="hidden" name="listki" value='<?= json_encode($_SESSION['listki']) ?>'>
+            <input type="hidden" name="listki" value='<?= $_SESSION['listki'] ?>'>
             <button type="submit">Plačilo</button>
         </form>
     </div>
@@ -163,36 +164,32 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 <div class="clear"></div>
 
 <div class="stevilke-euro">
-    <?php 
-    for ($i = 1; $i <= 12; $i++) {
-        $class = in_array($i, $_SESSION['euro']) ? 'krog izbrana' : 'krog';
-
-        echo '<a href="?stevilka=' . $i . '&tip=euro">';
-        echo '<p class="' . $class . '">' . $i . '</p>';
-        echo '</a>';
-
-        if ($i % 6 == 0) {
-            echo '<div class="clear"></div>';
-        }
-    }
-    ?>
+    <?php for ($i = 1; $i <= 12; $i++): ?>
+        <?php $class = in_array($i, $_SESSION['euro']) ? 'krog izbrana' : 'krog'; ?>
+        <a href="?stevilka=<?= $i ?>&tip=euro">
+            <p class="<?= $class ?>"><?= $i ?></p>
+        </a>
+        <?php if ($i % 6 == 0): ?>
+            <div class="clear"></div>
+        <?php endif; ?>
+    <?php endfor; ?>
 </div>
+
 
 <div class="clear"></div>
 
 <div class="footer">
     <p><strong>V koliko žrebanjih želite sodelovati?</strong></p>
-    <div class="zrebanja-izbira">
-        <?php
-        for ($i = 1; $i <= 5; $i++) {
-            $class = ($_SESSION['zrebanja'] === $i) ? 'krog izbrana' : 'krog';
+   <div class="zrebanja-izbira">
+    <?php for ($i = 1; $i <= 5; $i++): 
+        $class = ($_SESSION['zrebanja'] === $i) ? 'krog izbrana' : 'krog'; 
+    ?>
+        <a href="?zrebanja=<?= $i ?>">
+            <p class="<?= $class ?>"><?= $i ?></p>
+        </a>
+    <?php endfor; ?>
+</div>
 
-            echo '<a href="?zrebanja=' . $i . '">';
-            echo '<p class="' . $class . '">' . $i . '</p>';
-            echo '</a>';
-        }
-        ?>
-    </div>
 </div>
 <div class="clear"></div>
 <?php include 'footer.php' ?>

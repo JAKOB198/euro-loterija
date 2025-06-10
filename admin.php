@@ -10,7 +10,7 @@ $sporocilo = "";
 
 if (isset($_POST['dodaj_zrebanje'])) {
     $datum = $_POST['datum'];
-    $glavne = $_POST['glavne'];
+    $žž= $_POST['glavne'];
     $evropske = $_POST['evropske'];
 
     $link->query("INSERT INTO zrebanja (datum_zrebanja, glavne_stevilke, europske_stevilke) VALUES ('$datum', '$glavne', '$evropske')");
@@ -62,8 +62,20 @@ if (isset($_POST['obdelaj_zrebanja'])) {
             $moje_glavne = explode(',', $list['glavne_stevilke']);
             $moje_euro = explode(',', $list['euro_stevilke']);
 
-            $ujema_glavne = count(array_intersect($glavne, $moje_glavne));
-            $ujema_euro = count(array_intersect($euro, $moje_euro));
+           $ujema_glavne = 0;
+         foreach ($glavne as $stevilka) {
+         if (in_array($stevilka, $moje_glavne)) {
+        $ujema_glavne++;
+                    }
+                     }
+
+          $ujema_euro = 0;
+         foreach ($euro as $stevilka) {
+         if (in_array($stevilka, $moje_euro)) {
+        $ujema_euro++;
+                 }
+                    }
+
 
             $nagrada = $link->query("SELECT id_n, znesek_nagrade FROM nagrade WHERE stevilo_glavnih_stevilk = $ujema_glavne AND stevilo_eu_stevilk = $ujema_euro LIMIT 1");
 
@@ -123,8 +135,8 @@ $uporabniki = $link->query("SELECT * FROM uporabniki ORDER BY ime ASC");
                 <input type="hidden" name="id_z" value="<?= $z['id_z'] ?>">
                 <td><?= $z['id_z'] ?></td>
                 <td><input type="datetime-local" name="datum" value="<?= date('Y-m-d\TH:i', strtotime($z['datum_zrebanja'])) ?>"></td>
-                <td><input type="text" name="glavne" value="<?= htmlspecialchars($z['glavne_stevilke']) ?>"></td>
-                <td><input type="text" name="evropske" value="<?= htmlspecialchars($z['europske_stevilke']) ?>"></td>
+                <td><input type="text" name="glavne" value="<?= $z['glavne_stevilke'] ?>"></td>
+                <td><input type="text" name="evropske" value="<?= $z['europske_stevilke'] ?>"></td>
                 <td><input type="submit" name="uredi_zrebanje" value="Shrani"></td>
                 <td><a href="?izbrisi_zrebanje=<?= $z['id_z'] ?>" onclick="return confirm('Izbrisati žrebanje?')">Izbriši</a></td>
             </form>
@@ -149,9 +161,9 @@ $uporabniki = $link->query("SELECT * FROM uporabniki ORDER BY ime ASC");
             <form method="post">
                 <input type="hidden" name="id_u" value="<?= $u['id_u'] ?>">
                 <td><?= $u['id_u'] ?></td>
-                <td><?= htmlspecialchars($u['ime']) ?></td>
-                <td><?= htmlspecialchars($u['email']) ?></td>
-                <td><?= number_format($u['znesek_denarja'], 2) ?> €</td>
+                <td><?= $u['ime'] ?></td>
+                <td><?= $u['email'] ?></td>
+                <td><?= $u['znesek_denarja'] ?> €</td>
                 <td><?= $u['tip'] ?></td>
                 <td>
                     <input type="number" step="0.01" name="znesek" required>

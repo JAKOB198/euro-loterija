@@ -8,108 +8,88 @@ if (!isset($_SESSION['id_u'])) {
     exit;
 }
 
-
 $id_u = (int)$_SESSION['id_u'];
 define('CENA_NA_LISTEK', 2.5);
 
-// Pridobi podatke iz POST
-$listki = array();
-if (isset($_POST['listki'])) {
-    $listki = json_decode($_POST['listki'], true);
-}
-
+// Pridobi število žrebanj
 $zrebanja = 1;
 if (isset($_POST['zrebanja'])) {
     $zrebanja = (int)$_POST['zrebanja'];
 }
 
-$stevilo_listkov = 0;
-if (is_array($listki)) {
-    $stevilo_listkov = count($listki);
+// Pridobi listke
+$listki = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['listek'])) {
+    $listki = $_POST['listek'];
+} elseif (isset($_SESSION['listki'])) {
+    $listki = $_SESSION['listki'];
 }
 
+// Shrani v sejo, če prideš prvič
+if (!isset($_SESSION['listki'])) {
+    $_SESSION['listki'] = $listki;
+}
+
+$stevilo_listkov = count($listki);
 $skupni_znesek = $stevilo_listkov * CENA_NA_LISTEK * $zrebanja;
 
-// Pridobi datume prihodnjih žrebanj
-$datumi_zrebanj = array();
+// Pridobi prihajajoča žrebanja
+$datumi_zrebanj = [];
 $sql = "SELECT datum_zrebanja FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
 $rezultat = mysqli_query($link, $sql);
-
 while ($vrstica = mysqli_fetch_assoc($rezultat)) {
     $cas = strtotime($vrstica['datum_zrebanja']);
     $datumi_zrebanj[] = date('d. m. Y H:i', $cas);
 }
 
-// Ob potrditvi plačila
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['placaj'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
+    // Preveri denar
+    $sql = "SELECT znesek_denarja FROM uporabniki WHERE id_u = $id_u";
+    $rezultat = mysqli_query($link, $sql);
+    $vrstica = mysqli_fetch_assoc($rezultat);
+    $trenutni_denar = (float)$vrstica['znesek_denarja'];
 
-        // Preveri denar
-        $sql = "SELECT znesek_denarja FROM uporabniki WHERE id_u = " . $id_u;
-        $rezultat = mysqli_query($link, $sql);
-        $vrstica = mysqli_fetch_assoc($rezultat);
-        $trenutni_denar = (float)$vrstica['znesek_denarja'];
-
-        if ($trenutni_denar < $skupni_znesek) {
-            die("Nimate dovolj denarja.");
-        }
-
-        // Pridobi ID-je prihajajočih žrebanj
-        $id_z_list = array();
-        $sql = "SELECT id_z FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
-        $rezultat = mysqli_query($link, $sql);
-
-        while ($vrstica = mysqli_fetch_assoc($rezultat)) {
-            $id_z_list[] = $vrstica['id_z'];
-        }
-
-        if (count($id_z_list) < $zrebanja) {
-            die("❌ Ni dovolj prihajajočih žrebanj.");
-        }
-
-        // Vnos listkov v bazo
-        for ($i = 0; $i < count($listki); $i++) {
-            $listek = $listki[$i];
-
-            $glavne = "";
-            for ($j = 0; $j < 5; $j++) {
-                $glavne .= intval($listek[$j]);
-                if ($j < 4) {
-                    $glavne .= ",";
-                }
-            }
-
-            $euro = "";
-            for ($j = 5; $j < 7; $j++) {
-                $euro .= intval($listek[$j]);
-                if ($j < 6) {
-                    $euro .= ",";
-                }
-            }
-
-            for ($k = 0; $k < count($id_z_list); $k++) {
-                $id_z = $id_z_list[$k];
-
-                $sql = "INSERT INTO listki (glavne_stevilke, euro_stevilke, generiran, datum_naretega_listka, id_u, stevilo_zrebanj, id_z) 
-                        VALUES ('$glavne', '$euro', 0, NOW(), $id_u, $zrebanja, $id_z)";
-                $rezultat = mysqli_query($link, $sql);
-                if (!$rezultat) {
-                    die("Napaka pri vnosu: " . mysqli_error($link));
-                }
-            }
-        }
-
-        // Posodobi stanje denarja
-        $nov_denar = $trenutni_denar - $skupni_znesek;
-        $sql = "UPDATE uporabniki SET znesek_denarja = $nov_denar WHERE id_u = $id_u";
-        mysqli_query($link, $sql);
-
-        $_SESSION['denar'] = $nov_denar;
-        unset($_SESSION['listki']);
-
-        echo "<script>alert('✅ Plačilo uspešno! Znesek: " . number_format($skupni_znesek, 2) . " €'); window.location.href = 'index.php';</script>";
-        exit;
+    if ($trenutni_denar < $skupni_znesek) {
+        die("Nimate dovolj denarja.");
     }
+
+    // Pridobi ID žrebanj
+    $id_z_list = [];
+    $sql = "SELECT id_z FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
+    $rezultat = mysqli_query($link, $sql);
+    while ($vrstica = mysqli_fetch_assoc($rezultat)) {
+        $id_z_list[] = $vrstica['id_z'];
+    }
+
+    if (count($id_z_list) < $zrebanja) {
+        die("❌ Ni dovolj prihajajočih žrebanj.");
+    }
+
+    // Vstavi listke
+    foreach ($listki as $listek) {
+        $glavne = implode(",", array_slice($listek, 0, 5));
+        $euro = implode(",", array_slice($listek, 5, 2));
+
+        foreach ($id_z_list as $id_z) {
+            $sql = "INSERT INTO listki (glavne_stevilke, euro_stevilke, generiran, datum_naretega_listka, id_u, stevilo_zrebanj, id_z) 
+                    VALUES ('$glavne', '$euro', 0, NOW(), $id_u, $zrebanja, $id_z)";
+            $rezultat = mysqli_query($link, $sql);
+            if (!$rezultat) {
+                die("Napaka pri vnosu: " . mysqli_error($link));
+            }
+        }
+    }
+
+    // Posodobi denar
+    $nov_denar = $trenutni_denar - $skupni_znesek;
+    $sql = "UPDATE uporabniki SET znesek_denarja = $nov_denar WHERE id_u = $id_u";
+    mysqli_query($link, $sql);
+
+    $_SESSION['denar'] = $nov_denar;
+    unset($_SESSION['listki']);
+
+    echo "<script>alert('✅ Plačilo uspešno! Znesek: " . $skupni_znesek . " €'); window.location.href = 'index.php';</script>";
+    exit;
 }
 ?>
 
@@ -147,7 +127,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form method="post">
         <input type="hidden" name="placaj" value="1">
         <input type="hidden" name="zrebanja" value="<?php echo $zrebanja; ?>">
-        <input type="hidden" name="listki" value='<?php echo json_encode($listki); ?>'>
+
+        <?php foreach ($listki as $index => $listek): ?>
+            <?php foreach ($listek as $stevilka): ?>
+                <input type="hidden" name="listek[<?php echo $index; ?>][]" value="<?php echo $stevilka; ?>">
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+
         <button type="submit">Potrdi plačilo</button>
     </form>
 

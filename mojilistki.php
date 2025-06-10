@@ -2,7 +2,7 @@
 
 include 'baza.php';
 include 'navigation.php';
-// Preveri prijavo
+
 if (!isset($_SESSION['uporabnik'])) {
     header("Location: login.php");
     exit();
@@ -11,7 +11,7 @@ if (!isset($_SESSION['uporabnik'])) {
 $uporabnisko_ime = $_SESSION['uporabnik'];
 
 
-// Pridobi ID uporabnika
+
 $sql = "SELECT id_u FROM uporabniki WHERE ime = '$uporabnisko_ime'";
 $result = mysqli_query($link, $sql);
 if (mysqli_num_rows($result) == 0) {
@@ -21,7 +21,7 @@ if (mysqli_num_rows($result) == 0) {
 $row = mysqli_fetch_assoc($result);
 $id_u = $row['id_u'];
 
-// Pridobi VSE listke uporabnika (tudi stare)
+
 $sql = "
     SELECT l.id_l, l.glavne_stevilke, l.euro_stevilke, z.datum_zrebanja, 
            r.pravilne_glavne_stevilke, r.pravilne_euro_stevilke, n.znesek_nagrade
@@ -53,16 +53,49 @@ $result = mysqli_query($link, $sql);
             <th>Pravilne euro</th>
             <th>Nagrada</th>
         </tr>
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <tr>
-            <td><?= htmlspecialchars($row['glavne_stevilke']) ?></td>
-            <td><?= htmlspecialchars($row['euro_stevilke']) ?></td>
-            <td><?= $row['datum_zrebanja'] ?? 'Ni žrebanja' ?></td>
-            <td><?= $row['pravilne_glavne_stevilke'] ?? '0' ?></td>
-            <td><?= $row['pravilne_euro_stevilke'] ?? '0' ?></td>
-            <td><?= isset($row['znesek_nagrade']) ? $row['znesek_nagrade'].' €' : '0 €' ?></td>
-        </tr>
-        <?php endwhile; ?>
+       <?php while ($row = mysqli_fetch_assoc($result)): ?>
+    <tr>
+        <td><?php echo $row['glavne_stevilke']; ?></td>
+        <td><?php echo $row['euro_stevilke']; ?></td>
+        <td>
+            <?php
+            if (isset($row['datum_zrebanja'])) {
+                echo $row['datum_zrebanja'];
+            } else {
+                echo 'Ni žrebanja';
+            }
+            ?>
+        </td>
+        <td>
+            <?php
+            if (isset($row['pravilne_glavne_stevilke'])) {
+                echo $row['pravilne_glavne_stevilke'];
+            } else {
+                echo '0';
+            }
+            ?>
+        </td>
+        <td>
+            <?php
+            if (isset($row['pravilne_euro_stevilke'])) {
+                echo $row['pravilne_euro_stevilke'];
+            } else {
+                echo '0';
+            }
+            ?>
+        </td>
+        <td>
+            <?php
+            if (isset($row['znesek_nagrade'])) {
+                echo $row['znesek_nagrade'] . ' €';
+            } else {
+                echo '0 €';
+            }
+            ?>
+        </td>
+    </tr>
+<?php endwhile; ?>
+
     </table>
     <?php include 'footer.php' ?>
 </body>

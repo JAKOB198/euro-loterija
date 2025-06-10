@@ -29,8 +29,8 @@ $result = mysqli_query($link, $sql);
           <?php while($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
                     <td><?= date("d. m. Y H:i", strtotime($row["datum_zrebanja"])) ?></td>
-                    <td><?= htmlspecialchars($row["glavne_stevilke"]) ?></td>
-                    <td><?= htmlspecialchars($row["europske_stevilke"]) ?></td>
+                    <td><?= $row["glavne_stevilke"] ?></td>
+                    <td><?= $row["europske_stevilke"] ?></td>
                 </tr>
             <?php endwhile; ?>
         </tbody>

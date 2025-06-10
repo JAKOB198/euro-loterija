@@ -25,8 +25,8 @@ session_start();
     <div class="uporabnik">
         <?php if (isset($_SESSION['uporabnik'])): ?>
             <span>
-                Pozdravljen, <strong><?= htmlspecialchars($_SESSION['uporabnik']) ?></strong> |
-                Denar na računu: <strong><?= number_format($_SESSION['denar'] ?? 0, 2) ?> €</strong>
+                Pozdravljen, <strong><?= $_SESSION['uporabnik'] ?></strong> |
+                Denar na računu: <strong><?= $_SESSION['denar']  ?> €</strong>
             </span>
             <a href="logout.php"><button class="btn-odjava">Odjava</button></a>
         <?php else: ?>
