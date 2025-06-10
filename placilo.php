@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     }
 
     if (count($id_z_list) < $zrebanja) {
-        die("❌ Ni dovolj prihajajočih žrebanj.");
+        die(" Ni dovolj prihajajočih žrebanj.");
     }
 
    
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     $_SESSION['denar'] = $nov_denar;
     unset($_SESSION['listki']);
 
-    echo "<script>alert('✅ Plačilo uspešno! Znesek: " . $skupni_znesek . " €'); window.location.href = 'index.php';</script>";
+    echo "<script>alert(' Plačilo uspešno! Znesek: " . $skupni_znesek . " €'); window.location.href = 'index.php';</script>";
     exit;
 }
 ?>

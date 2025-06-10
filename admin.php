@@ -58,7 +58,7 @@ if (isset($_POST['obdelaj_zrebanja'])) {
 $zrebanja = mysqli_query($link, $query);
 
 
-    while ($zreb = $zrebanja->fetch_assoc()) {
+    while ($zreb = mysqli_fetch_assoc($zrebanja)) {
         $id_z = $zreb['id_z'];
         $glavne = explode(',', $zreb['glavne_stevilke']);
         $euro = explode(',', $zreb['europske_stevilke']);

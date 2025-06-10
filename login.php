@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             exit;
         } else {
-            $sporocilo = "❌ Napačno geslo.";
+            $sporocilo = " Napačno geslo.";
         }
     } else {
-        $sporocilo = "❌ Uporabnik s tem emailom ne obstaja.";
+        $sporocilo = " Uporabnik s tem emailom ne obstaja.";
     }
 }
 ?>
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <h1>Prijava uporabnika</h1>
 <?php if (isset($_GET['napaka']) && $_GET['napaka'] == 1): ?>
-    <div class="opozorilo">⚠️ Najprej se moraš prijaviti, da lahko dostopaš do te strani.</div>
+    <div class="opozorilo"> Najprej se moraš prijaviti, da lahko dostopaš do te strani.</div>
 <?php endif; ?>
 
 
