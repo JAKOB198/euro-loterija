@@ -47,6 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <h1>Prijava uporabnika</h1>
+<?php if (isset($_GET['napaka']) && $_GET['napaka'] == 1): ?>
+    <div class="opozorilo">⚠️ Najprej se moraš prijaviti, da lahko dostopaš do te strani.</div>
+<?php endif; ?>
 
 <?php if (!empty($sporocilo)) : ?>
     <p style="color: <?= str_contains($sporocilo, '✅') ? 'green' : 'red' ?>;">

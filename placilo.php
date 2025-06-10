@@ -4,7 +4,8 @@ include 'navigation.php';
 date_default_timezone_set('Europe/Ljubljana');
 
 if (!isset($_SESSION['id_u'])) {
-    die("Napaka: uporabnik ni prijavljen.");
+    header("Location: login.php?napaka=1");
+    exit;
 }
 
 $id_u = (int)$_SESSION['id_u'];

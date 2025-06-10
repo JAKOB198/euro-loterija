@@ -194,5 +194,7 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
         ?>
     </div>
 </div>
+<div class="clear"></div>
+<?php include 'footer.php' ?>
 </body>
 </html>

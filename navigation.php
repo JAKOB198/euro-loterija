@@ -31,7 +31,7 @@ session_start();
             <a href="logout.php"><button class="btn-odjava">Odjava</button></a>
         <?php else: ?>
             <a href="login.php"><button class="btn-prijava">Prijava</button></a>
-            <a href="vnos_uporabnikov.php"><button class="btn-registracija">Registracija</button></a>
+            <a href="register.php"><button class="btn-registracija">Registracija</button></a>
         <?php endif; ?>
     </div>
 

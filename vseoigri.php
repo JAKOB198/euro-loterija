@@ -63,6 +63,6 @@ include 'navigation.php';
   sničijo v torek in petek! Igraj prek spleta.
   </div>
 </div>
-
+<?php include 'footer.php' ?>
 </body>
 </html>

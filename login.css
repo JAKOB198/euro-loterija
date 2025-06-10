@@ -81,4 +81,12 @@ a:hover {
   text-decoration: underline;
 }
 
+.opozorilo {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 10px;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
 

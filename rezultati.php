@@ -38,6 +38,6 @@ $result = mysqli_query($link, $sql);
 <?php else: ?>
     <p>Trenutno še ni rezultatov.</p>
 <?php endif; ?>
-
+<?php include 'footer.php' ?>
 </body>
 </html>

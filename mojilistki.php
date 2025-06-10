@@ -64,5 +64,6 @@ $result = mysqli_query($link, $sql);
         </tr>
         <?php endwhile; ?>
     </table>
+    <?php include 'footer.php' ?>
 </body>
 </html>

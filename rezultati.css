@@ -1,6 +1,6 @@
 body {
 
-    background-color: #fff9f0;
+  
     color: #333;
     
     line-height: 1.6;
@@ -24,6 +24,7 @@ table {
     margin: 20px auto; /* centriranje in razmik */
     border-collapse: collapse;
     background-color: white;
+    margin-bottom: 30%;
 }
 
 th, td {

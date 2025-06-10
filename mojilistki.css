@@ -19,6 +19,7 @@ table {
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(211, 84, 0, 0.2);
     background-color: #fff;
+    margin-bottom: 30%;
 }
 
 th, td {
