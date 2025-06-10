@@ -7,7 +7,7 @@ body {
     
 }
 
-/* H1 bo zdaj bolj pri vrhu */
+
 h1 {
     color: #e36c0a;
     font-size: 32px;
@@ -21,7 +21,7 @@ h1 {
 table {
     width: 90%;
     max-width: 1000px;
-    margin: 20px auto; /* centriranje in razmik */
+    margin: 20px auto; 
     border-collapse: collapse;
     background-color: white;
     margin-bottom: 30%;

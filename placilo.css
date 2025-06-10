@@ -1,4 +1,4 @@
-/* Body */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
    
@@ -7,7 +7,7 @@ body {
     
 }
 
-/* Main headings */
+
 h1 {
     color: #d35400;
     text-align: center;
@@ -19,7 +19,7 @@ h3 {
     margin-top: 30px;
 }
 
-/* Ticket display */
+
 .listek {
     background-color: #fff3e0;
     border: 1px solid #ffc085;
@@ -29,7 +29,7 @@ h3 {
     box-shadow: 0 2px 5px rgba(255, 165, 0, 0.2);
 }
 
-/* Number circle */
+
 .krog {
     display: inline-block;
     background-color: #f39c12;
@@ -43,7 +43,7 @@ h3 {
     font-weight: bold;
 }
 
-/* Total amount section */
+
 .skupaj {
     margin-top: 25px;
     font-size: 1.2em;
@@ -51,7 +51,7 @@ h3 {
     color: #d35400;
 }
 
-/* Buttons */
+
 button {
     background-color: #e67e22;
     color: white;
@@ -68,12 +68,12 @@ button:hover {
     background-color: #d35400;
 }
 
-/* Back link */
+
 a button {
     margin-left: 10px;
 }
 
-/* Upcoming draws */
+
 ul {
     list-style-type: none;
     padding-left: 0;

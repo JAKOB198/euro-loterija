@@ -33,7 +33,7 @@ body {
     margin: 0;
 }
 
-/* Uporabniški del desno */
+
 .uporabnik {
     float: right;
     margin-right: 5%;
@@ -47,7 +47,7 @@ body {
     font-size: 0.95em;
 }
 
-/* Gumbi */
+
 .uporabnik button {
     font-weight: bold;
     padding: 5px 10px;
@@ -56,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-/* Odjava */
+
 .btn-odjava {
     background-color: #ff4d4d;
     color: white;
@@ -66,7 +66,7 @@ body {
     background-color: #e60000;
 }
 
-/* Prijava */
+
 .btn-prijava {
     background-color: #4CAF50;
     color: white;
@@ -76,7 +76,7 @@ body {
     background-color: #3e8e41;
 }
 
-/* Registracija */
+
 .btn-registracija {
     background-color: #008CBA;
     color: white;
@@ -141,7 +141,7 @@ body {
     }
 
     .navigacija a {
-        float: none; /* zelo pomembno: da ne razmeče linkov */
+        float: none; 
         margin: 0 5px;
     }
 
