@@ -11,13 +11,13 @@ if (!isset($_SESSION['id_u'])) {
 $id_u = (int)$_SESSION['id_u'];
 define('CENA_NA_LISTEK', 2.5);
 
-// Pridobi število žrebanj
+
 $zrebanja = 1;
 if (isset($_POST['zrebanja'])) {
     $zrebanja = (int)$_POST['zrebanja'];
 }
 
-// Pridobi listke
+
 $listki = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['listek'])) {
     $listki = $_POST['listek'];
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['listek'])) {
     $listki = $_SESSION['listki'];
 }
 
-// Shrani v sejo, če prideš prvič
+
 if (!isset($_SESSION['listki'])) {
     $_SESSION['listki'] = $listki;
 }
@@ -33,7 +33,7 @@ if (!isset($_SESSION['listki'])) {
 $stevilo_listkov = count($listki);
 $skupni_znesek = $stevilo_listkov * CENA_NA_LISTEK * $zrebanja;
 
-// Pridobi prihajajoča žrebanja
+
 $datumi_zrebanj = [];
 $sql = "SELECT datum_zrebanja FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
 $rezultat = mysqli_query($link, $sql);
@@ -43,7 +43,7 @@ while ($vrstica = mysqli_fetch_assoc($rezultat)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
-    // Preveri denar
+  
     $sql = "SELECT znesek_denarja FROM uporabniki WHERE id_u = $id_u";
     $rezultat = mysqli_query($link, $sql);
     $vrstica = mysqli_fetch_assoc($rezultat);
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         die("Nimate dovolj denarja.");
     }
 
-    // Pridobi ID žrebanj
+    
     $id_z_list = [];
     $sql = "SELECT id_z FROM zrebanja WHERE datum_zrebanja > NOW() ORDER BY datum_zrebanja ASC LIMIT " . $zrebanja;
     $rezultat = mysqli_query($link, $sql);
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         die("❌ Ni dovolj prihajajočih žrebanj.");
     }
 
-    // Vstavi listke
+   
     foreach ($listki as $listek) {
         $glavne = implode(",", array_slice($listek, 0, 5));
         $euro = implode(",", array_slice($listek, 5, 2));
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         }
     }
 
-    // Posodobi denar
+ 
     $nov_denar = $trenutni_denar - $skupni_znesek;
     $sql = "UPDATE uporabniki SET znesek_denarja = $nov_denar WHERE id_u = $id_u";
     mysqli_query($link, $sql);
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
         </div>
     <?php endforeach; ?>
 
-    <div class="skupaj">Skupni znesek za plačilo: <?php echo number_format($skupni_znesek, 2); ?> €</div>
+    <div class="skupaj">Skupni znesek za plačilo: <?php echo $skupni_znesek ?> €</div>
 
     <form method="post">
         <input type="hidden" name="placaj" value="1">

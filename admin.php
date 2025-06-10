@@ -13,7 +13,9 @@ if (isset($_POST['dodaj_zrebanje'])) {
     $žž= $_POST['glavne'];
     $evropske = $_POST['evropske'];
 
-    $link->query("INSERT INTO zrebanja (datum_zrebanja, glavne_stevilke, europske_stevilke) VALUES ('$datum', '$glavne', '$evropske')");
+   $query = "INSERT INTO zrebanja (datum_zrebanja, glavne_stevilke, europske_stevilke) VALUES ('$datum', '$glavne', '$evropske')";
+mysqli_query($link, $query);
+
     $sporocilo = " Žrebanje dodano!";
 }
 
@@ -24,14 +26,17 @@ if (isset($_POST['uredi_zrebanje'])) {
     $glavne = $_POST['glavne'];
     $evropske = $_POST['evropske'];
 
-    $link->query("UPDATE zrebanja SET datum_zrebanja = '$datum', glavne_stevilke = '$glavne', europske_stevilke = '$evropske' WHERE id_z = $id");
+   $query = "UPDATE zrebanja SET datum_zrebanja = '$datum', glavne_stevilke = '$glavne', europske_stevilke = '$evropske' WHERE id_z = $id";
+mysqli_query($link, $query);
+
     $sporocilo = " Žrebanje posodobljeno!";
 }
 
 
 if (isset($_POST['izbrisi_zrebanje'])) {
     $id = (int)$_POST['izbrisi_zrebanje'];
-    $link->query("DELETE FROM zrebanja WHERE id_z = $id");
+    mysqli_query($link, "DELETE FROM zrebanja WHERE id_z = $id");
+
     header("Location: admin.php");
     exit;
 }
@@ -40,23 +45,29 @@ if (isset($_POST['izbrisi_zrebanje'])) {
 if (isset($_POST['dodaj_denar'])) {
     $id_u = (int)$_POST['id_u'];
     $znesek = (float)$_POST['znesek'];
-    $link->query("UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u");
+    $query = "UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u";
+mysqli_query($link, $query);
+
     $sporocilo = " Denar dodan!";
 }
 
 
 if (isset($_POST['obdelaj_zrebanja'])) {
     $zdaj = date('Y-m-d H:i:s');
-    $zrebanja = $link->query("SELECT * FROM zrebanja WHERE datum_zrebanja <= '$zdaj' AND obdelano = 0");
+   $query = "SELECT * FROM zrebanja WHERE datum_zrebanja <= '$zdaj' AND obdelano = 0";
+$zrebanja = mysqli_query($link, $query);
+
 
     while ($zreb = $zrebanja->fetch_assoc()) {
         $id_z = $zreb['id_z'];
         $glavne = explode(',', $zreb['glavne_stevilke']);
         $euro = explode(',', $zreb['europske_stevilke']);
 
-        $listki = $link->query("SELECT * FROM listki WHERE generiran = 0 AND id_z = $id_z");
+       $query = "SELECT * FROM listki WHERE generiran = 0 AND id_z = $id_z";
+$listki = mysqli_query($link, $query);
 
-        while ($list = $listki->fetch_assoc()) {
+
+       while ($list = mysqli_fetch_assoc($listki)) {
             $id_l = $list['id_l'];
             $id_u = $list['id_u'];
             $moje_glavne = explode(',', $list['glavne_stevilke']);
@@ -77,31 +88,46 @@ if (isset($_POST['obdelaj_zrebanja'])) {
                     }
 
 
-            $nagrada = $link->query("SELECT id_n, znesek_nagrade FROM nagrade WHERE stevilo_glavnih_stevilk = $ujema_glavne AND stevilo_eu_stevilk = $ujema_euro LIMIT 1");
+          $query = "SELECT id_n, znesek_nagrade FROM nagrade WHERE stevilo_glavnih_stevilk = $ujema_glavne AND stevilo_eu_stevilk = $ujema_euro LIMIT 1";
+$nagrada = mysqli_query($link, $query);
 
-            if ($nagrada->num_rows > 0) {
-                $n = $nagrada->fetch_assoc();
+
+           if (mysqli_num_rows($nagrada) > 0) {
+                $n = mysqli_fetch_assoc($nagrada);
+
                 $id_n = $n['id_n'];
                 $znesek = $n['znesek_nagrade'];
 
-                $link->query("UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u");
+                $query = "UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u";
+mysqli_query($link, $query);
+
             } else {
                 $id_n = "NULL";
             }
 
-            $link->query("INSERT INTO rezultati_listkov (pravilne_glavne_stevilke, pravilne_euro_stevilke, id_l, id_n, id_z) VALUES ($ujema_glavne, $ujema_euro, $id_l, $id_n, $id_z)");
+          $query = "INSERT INTO rezultati_listkov (pravilne_glavne_stevilke, pravilne_euro_stevilke, id_l, id_n, id_z) VALUES ($ujema_glavne, $ujema_euro, $id_l, $id_n, $id_z)";
+mysqli_query($link, $query);
 
-            $link->query("UPDATE listki SET generiran = 1 WHERE id_l = $id_l");
+
+            $query = "UPDATE listki SET generiran = 1 WHERE id_l = $id_l";
+mysqli_query($link, $query);
+
         }
 
-        $link->query("UPDATE zrebanja SET obdelano = 1 WHERE id_z = $id_z");
+       $query = "UPDATE zrebanja SET obdelano = 1 WHERE id_z = $id_z";
+mysqli_query($link, $query);
+
     }
 
     $sporocilo = " Obdelava žrebanj zaključena.";
 }
 
-$zrebanja = $link->query("SELECT * FROM zrebanja ORDER BY datum_zrebanja DESC");
-$uporabniki = $link->query("SELECT * FROM uporabniki ORDER BY ime ASC");
+$query = "SELECT * FROM zrebanja ORDER BY datum_zrebanja DESC";
+$zrebanja = mysqli_query($link, $query);
+
+$query = "SELECT * FROM uporabniki ORDER BY ime ASC";
+$uporabniki = mysqli_query($link, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -129,7 +155,8 @@ $uporabniki = $link->query("SELECT * FROM uporabniki ORDER BY ime ASC");
         <tr>
             <th>ID</th><th>Datum</th><th>Glavne</th><th>Evropske</th><th>Uredi</th><th>Izbriši</th>
         </tr>
-        <?php while ($z = $zrebanja->fetch_assoc()): ?>
+        <?php while ($z = mysqli_fetch_assoc($zrebanja)): ?>
+
         <tr>
             <form method="post">
                 <input type="hidden" name="id_z" value="<?= $z['id_z'] ?>">
@@ -156,7 +183,8 @@ $uporabniki = $link->query("SELECT * FROM uporabniki ORDER BY ime ASC");
         <tr>
             <th>ID</th><th>Ime</th><th>Email</th><th>Denar</th><th>Tip</th><th>Dodaj denar</th>
         </tr>
-        <?php while ($u = $uporabniki->fetch_assoc()): ?>
+        <?php while ($u = mysqli_fetch_assoc($uporabniki)): ?>
+
         <tr>
             <form method="post">
                 <input type="hidden" name="id_u" value="<?= $u['id_u'] ?>">
