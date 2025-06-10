@@ -46,6 +46,6 @@ session_start();
 <div class="nacin-igranja">
 <p>izberite nacin igranja: </p>
   <a href="index.php">igraj sam</a>
-   <a href="">hiter izbor </a>
+ 
 </div>
 <div class="clear"></div>

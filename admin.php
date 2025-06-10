@@ -85,7 +85,7 @@ if (isset($_POST['obdelaj_zrebanja'])) {
         $link->query("UPDATE zrebanja SET obdelano = 1 WHERE id_z = $id_z");
     }
 
-    $sporocilo = "✅ Obdelava žrebanj zaključena.";
+    $sporocilo = " Obdelava žrebanj zaključena.";
 }
 
 $zrebanja = $link->query("SELECT * FROM zrebanja ORDER BY datum_zrebanja DESC");

@@ -69,5 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <br>
 <a href="index.php">Domov</a>
+<a href="register.php">Registracija</a>
 </body>
 </html>

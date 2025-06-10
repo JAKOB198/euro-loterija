@@ -8,6 +8,7 @@ if (!isset($_SESSION['id_u'])) {
     exit;
 }
 
+
 $id_u = (int)$_SESSION['id_u'];
 define('CENA_NA_LISTEK', 2.5);
 
