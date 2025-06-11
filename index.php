@@ -76,7 +76,7 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css?v=1.0">
+    <link rel="stylesheet" href="css/index.css?v=1.0">
     <title>loterija</title>
 </head>
 <body>
@@ -150,8 +150,6 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
             <button type="submit">Plačilo</button>
         </form>
     </div>
-</div>
-<div class="clear"></div>
 
 <div class="stevilke-euro">
     <?php for ($i = 1; $i <= 12; $i++): ?>
@@ -164,6 +162,10 @@ if (isset($_GET['zrebanja']) && in_array((int)$_GET['zrebanja'], [1, 2, 3, 4, 5]
         <?php endif; ?>
     <?php endfor; ?>
 </div>
+</div>
+<div class="clear"></div>
+
+
 
 
 <div class="clear"></div>

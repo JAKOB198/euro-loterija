@@ -40,10 +40,10 @@ $result = mysqli_query($link, $sql);
 <html>
 <head>
     <title>Moji listki</title>
-    <link rel="stylesheet" href="mojilistki.css">
+    <link rel="stylesheet" href="css/mojilistki.css">
 </head>
 <body>
-    <h1>Moji listki</h1>
+    
     <table border="1">
         <tr>
             <th>Glavne številke</th>

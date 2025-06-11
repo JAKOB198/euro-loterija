@@ -14,18 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sporocilo = " Gesli se ne ujemata.";
     } else {
        
-        $check_email = "SELECT * FROM uporabniki WHERE email = '$email'";
-        $result_check = mysqli_query($link, $check_email);
+        $preglej_email = "SELECT * FROM uporabniki WHERE email = '$email'";
+        $rezultat_email = mysqli_query($link, $preglej_email);
 
-        if (mysqli_num_rows($result_check) > 0) {
+        if (mysqli_num_rows($rezultat_email) > 0) {
             $sporocilo = " Email že obstaja v bazi.";
         } else {
            
             $query = "INSERT INTO uporabniki (ime, email, geslo) 
                       VALUES ('$ime', '$email', '$geslo')";
-            $result = mysqli_query($link, $query);
+            $rezultat = mysqli_query($link, $query);
 
-            if ($result) {
+            if ($rezultat) {
                 $sporocilo = " Uporabnik uspešno vnešen. Preusmeritev...";
                 header("refresh:3;url=login.php");
             } else {
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <meta charset="UTF-8">
-     <link rel="stylesheet" href="register.css?v=1.0">
+     <link rel="stylesheet" href="css/register.css?v=1.0">
     <title>Vnos uporabnika</title>
 </head>
 <body>
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
  
     <?php if (!empty($sporocilo)) : ?>
-        <p style="color: <?= str_contains($sporocilo, '✅') ? 'green' : 'red' ?>;">
+        <p  <?= $sporocilo ?>;>
             <?= $sporocilo ?>
         </p>
     <?php endif; ?>

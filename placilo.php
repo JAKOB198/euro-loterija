@@ -100,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
 <head>
     <meta charset="UTF-8">
     <title>Plačilo</title>
-    <link rel="stylesheet" href="placilo.css">
+    <link rel="stylesheet" href="css/placilo.css">
 </head>
 <body>
    <?php include 'koraki.php' ?>
     <div class="clear"></div>
 </div>
-    <h1>Pregled plačila</h1>
+    
     <h3>Število žrebanj: <?php echo $zrebanja; ?></h3>
 
     <h3>Prihajajoča žrebanja:</h3>
@@ -119,11 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['placaj'])) {
     <h3>Tvoji listki:</h3>
     <?php foreach ($listki as $index => $listek): ?>
         <div class="listek">
-            Listek <?php echo $index + 1; ?>:
-            <?php foreach ($listek as $stevilka): ?>
-                <span class="krog"><?php echo $stevilka; ?></span>
-            <?php endforeach; ?>
-        </div>
+    <div style="margin-bottom: 5px;">Listek <?php echo $index + 1; ?>:</div>
+    <?php foreach ($listek as $stevilka): ?>
+        <span class="krog"><?php echo $stevilka; ?></span>
+    <?php endforeach; ?>
+    <div class="clear"></div>
+</div>
+
+
     <?php endforeach; ?>
 
     <div class="skupaj">Skupni znesek za plačilo: <?php echo $skupni_znesek ?> €</div>

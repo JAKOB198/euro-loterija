@@ -45,7 +45,7 @@ if (isset($_POST['izbrisi_zrebanje'])) {
 if (isset($_POST['dodaj_denar'])) {
     $id_u = (int)$_POST['id_u'];
     $znesek = (float)$_POST['znesek'];
-    $query = "UPDATE uporabniki SET znesek_denarja = znesek_denarja + $znesek WHERE id_u = $id_u";
+    $query = "UPDATE uporabniki SET znesek_denarja = $znesek WHERE id_u = $id_u";
 mysqli_query($link, $query);
 
     $sporocilo = " Denar dodan!";
@@ -135,7 +135,7 @@ $uporabniki = mysqli_query($link, $query);
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
     <h1>Admin</h1>
@@ -151,7 +151,7 @@ $uporabniki = mysqli_query($link, $query);
     </form>
 
     <h3>Obstoječa žrebanja</h3>
-    <table border="1">
+    <table >
         <tr>
             <th>ID</th><th>Datum</th><th>Glavne</th><th>Evropske</th><th>Uredi</th><th>Izbriši</th>
         </tr>

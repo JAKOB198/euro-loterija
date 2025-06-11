@@ -3,33 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Eurojackpot - Noga</title>
-   <link href="footer.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
 </head>
 <body>
 
 <footer class="noga-eurojackpot">
-    <div class="vsebnik-noge">
-        
-        <div class="odsek-noge sredinsko-levo">
+    <div class="vsebina-noge">
+
+        <div class="leva-pomoc">
             <h4>Pomoč in podpora</h4>
             <p>📞 01 24 26 175</p>
             <p>📧 <a href="mailto:info@eurojackpot.si">info@eurojackpot.si</a></p>
             <p>📍 Gerbičeva ulica 99<br>1000 Ljubljana</p>
         </div>
-        <div class="odsek-noge sredinsko-desno">
+
+        <div class="socialna-omrezja">
             <h4>Družbena omrežja</h4>
             <a href="#">Facebook</a><br>
             <a href="#">Instagram</a><br>
             <a href="#">YouTube</a>
         </div>
-        <div class="odsek-noge desno">
+
+        <div class="mobilna-aplikacija">
             <h4>Mobilna aplikacija</h4>
             <img src="slike/footer_app_store.svg" alt="App Store" class="ikona-trgovine">
+            <br>
             <img src="slike/footer_android.svg" alt="Google Play" class="ikona-trgovine">
         </div>
+
         <div style="clear: both;"></div>
     </div>
+
     <hr>
+
     <div class="noga-spodaj">
         <p>© 2025 Eurojackpot Slovenija |
             <a href="#">Varstvo osebnih podatkov</a> |

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Eurojackpot - Noga</title>
-   <link href="koraki.css" rel="stylesheet">
+   <link href="css/koraki.css" rel="stylesheet">
 </head>
 <body>
 

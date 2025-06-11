@@ -1,5 +1,5 @@
 <?php
-include 'navigation.php';
+include 'navigation.php'
 ?>
 <!DOCTYPE html>
 <html lang="sl">
@@ -7,11 +7,11 @@ include 'navigation.php';
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Eurojackpot - Vse o igri</title>
-  <link rel="stylesheet" href="vseoigri.css">
+  <link rel="stylesheet" href="css/vseoigri.css">
 </head>
 <body>
 
-<div class="main-content">
+<div class="main">
   <h1>Vse o igri Eurojackpot</h1>
 
   <p><strong>120 milijonov razlogov</strong>, zaradi katerih sta torek in petek najbolj vznemirljiva dneva v tednu.</p>
@@ -30,7 +30,7 @@ include 'navigation.php';
       <li>Igralci, ki bodo vplačali več kombinacij v igro, bodo z isto številko potrdila v žrebu sodelovali tolikokrat, kolikor kombinacij bodo vplačali.</li>
   </ul>
 
-  <div class="example">
+  <div class="primer">
     Primer: igralec, ki bo vplačal 2 kombinaciji Eurojackpot, bo v tekočem žrebanju Bonus Runda sodeloval 2x.<br>
     Igralec, ki bo vplačal 6 kombinacij Eurojackpot, bo v tekočem žrebanju Bonus Runda sodeloval 6x, itd.
   </div>

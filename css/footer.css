@@ -1,59 +1,52 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   
+}
+
 .noga-eurojackpot {
     background-color: #007f2d;
     color: white;
     padding: 20px;
-    font-family: Arial, sans-serif;
     font-size: 14px;
-    margin-top: 10%;
+    
 }
 
-.vsebnik-noge {
+.vsebina-noge {
     width: 100%;
     margin-left: 20%;
     margin-bottom: 20px;
-
 }
-
-.odsek-noge {
+.leva-pomoc,
+.socialna-omrezja,
+.mobilna-aplikacija {
     width: 23%;
     float: left;
     margin: 0 1%;
 }
 
-.odsek-noge h4 {
+
+ h4 {
     margin-bottom: 10px;
     font-size: 16px;
 }
 
-.odsek-noge ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.odsek-noge ul li {
-    margin-bottom: 5px;
-}
-
-.odsek-noge a {
+ a {
     color: white;
     text-decoration: none;
 }
-
-.odsek-noge a:hover {
+a:hover {
     text-decoration: underline;
 }
 
 .ikona-trgovine {
     height: 40px;
     margin: 5px 0;
-    display: block;
+    
 }
-
 .noga-spodaj {
     text-align: center;
     font-size: 13px;
 }
-
 .noga-spodaj a {
     color: #ffffff;
     margin: 0 5px;

@@ -6,8 +6,6 @@ body {
     clear: both;
 }
 
-
-
 .stevilke-navadne .krog,
 .stevilke-euro .krog {
     float: left;
@@ -24,48 +22,43 @@ body {
     margin: 0;
     
 }
-
 .stevilke-navadne .krog:hover,
 .stevilke-euro .krog:hover {
-    cursor: pointer;
+    cursor: pointer; 
     border-color: orange;
     color: orange;
 }
-
 .main-leva {
     float: left;
     margin-left: 30%;
     border: 2px solid grey;
-    padding: 5px;
+   padding: 5px;
+    
 }
-
 .main-desna {
     float: right;
     margin-right: 20%;
     background-color: #fce3cc;
     padding: 1%;
-    border: solid grey 1px;
+    border: solid grey 2px;
+     
 }
-
 .stevilke-euro {
     margin-left: 30%;
-    
+    margin-top: 1%;
     border: 2px solid grey;
     float: left;
     padding: 5px;
 }
-
 .main p {
     margin-left: 30%;
 }
 
 .krog.izbrana {
-    background-color: yellow;
-    color: black;
-    border: 2px solid orange;
+    background-color: orange;
+color:grey;
+    border: 2px solid grey;
 }
-
-
 .zrebanja-izbira .krog {
     float: left;
     width: 35px;
@@ -80,18 +73,10 @@ body {
     color: grey;
     
 }
-
 .zrebanja-izbira .krog:hover {
     cursor: pointer;
     border-color: orange;
 }
-
-.krog.izbrana {
-    background-color: orange;
-    color: white;
-    border: 2px solid darkorange;
-}
-
 .footer {
     margin-left: 30%;
     clear: left;
@@ -112,3 +97,4 @@ button {
 button:hover {
     background-color: darkorange;
 }
+
